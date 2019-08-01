@@ -1,0 +1,79 @@
+//Body bg
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right top, #ccdce7, #c1d5e2, #b7cddc, #acc6d7, #a1bfd2) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+//Nav bar
+
+nav {
+  width: 100%;
+
+  .nav-wrapper {
+    background-color: #353535;
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
+//layout
+
+.btn {
+  max-width: 200px;
+  width: 100%;
+  margin-right: 15px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+
+.v-align {
+  @include flexbox();
+  @include flex-v-align(center, center);
+  min-height: 100vh;
+}
+
+.panel {
+  background-color: #fff;
+  @include border-radius(8px);
+  @include opacity(0.8);
+  @include box-shadow(1px, 1px, 5px, 1px, 0, 0, 0, 0.45);
+  min-height: 350px;
+  height: 100%;
+}
+
+
+//image area
+.img-container {
+  margin-bottom: 25px;
+
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+

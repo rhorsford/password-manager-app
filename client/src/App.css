@@ -1,0 +1,177 @@
+.btn-primary {
+  background: -moz-linear-gradient(top, #33a6cc 50%, #0099cc 50%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #33a6cc), color-stop(50%, #0099cc));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #33a6cc 50%, #0099cc 50%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #33a6cc 50%, #0099cc 50%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #33a6cc 50%, #0099cc 50%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #33a6cc 50%, #0099cc 50%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33a6cc', endColorstr='#0099cc', GradientType=0);
+  /* IE6-9 */ }
+  .btn-primary:hover, .btn-primary:focus {
+    background: -moz-linear-gradient(top, #66b2cc 50%, #33a6cc 50%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #66b2cc), color-stop(50%, #33a6cc));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #66b2cc 50%, #33a6cc 50%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #66b2cc 50%, #33a6cc 50%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #66b2cc 50%, #33a6cc 50%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #66b2cc 50%, #33a6cc 50%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#66b2cc', endColorstr='#33a6cc', GradientType=0);
+    /* IE6-9 */ }
+  .btn-primary:active {
+    background: -moz-linear-gradient(top, #267c99 50%, #007299 50%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #267c99), color-stop(50%, #007299));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #267c99 50%, #007299 50%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #267c99 50%, #007299 50%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #267c99 50%, #007299 50%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #267c99 50%, #007299 50%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#267c99', endColorstr='#007299', GradientType=0);
+    /* IE6-9 */ }
+
+/*
+ * Media Query BreakPoints
+ */
+/*
+   //Usages
+   @include break-point(mobile){
+    margin:2em;
+   }
+ */
+/*
+ * Box-Sizing Mixin
+ */
+/*
+   //Usages
+   @include box-sizing(border-box);
+ */
+/*
+ * Box-Shadow Mixin
+ */
+/*
+   //Usages
+   @include border-shading(10px 10px 5px 0px 0,0,0,0.75);
+ */
+/*
+ * Border-Radius Mixin
+ */
+/*
+   //Usages
+   @include border-radius(8px);
+ */
+/*
+ * FlexBox Mixins
+ */
+/*
+   //Usages
+    @include flexbox();
+ */
+/*
+   //Usages
+    @include flex(1, 2);
+ */
+/*
+   //Usages
+     @include flex-order(3);
+ */
+/*
+   //Usages
+     @include flex-direction(column);
+ */
+/*
+   //Usages
+     @include flex-v-align(center);
+ */
+/*
+ * Opacity Mixin
+ */
+/*
+   //Usages
+     @include opacity(0.5);
+ */
+/*
+ * Gradient Mixin
+ */
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body {
+  background: linear-gradient(to right top, #ccdce7, #c1d5e2, #b7cddc, #acc6d7, #a1bfd2) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+nav {
+  width: 100%; }
+  nav .nav-wrapper {
+    background-color: #353535; }
+    nav .nav-wrapper a {
+      color: #fff; }
+
+.btn {
+  max-width: 200px;
+  width: 100%;
+  margin-right: 15px; }
+  .btn:last-child {
+    margin-right: 0; }
+
+.v-align {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 100vh; }
+
+.panel {
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
+  min-height: 350px;
+  height: 100%; }
+
+.img-container {
+  margin-bottom: 25px; }
+  .img-container .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px; }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+.App {
+  text-align: center; }
+
+/*# sourceMappingURL=App.css.map */
