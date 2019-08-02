@@ -1,0 +1,18 @@
+//Login and Register styles
+
+.bg {
+ background: url("./img/bgimg.jpg") no-repeat fixed center;
+  background-size: cover;
+  height: 150px;
+  width: 100%;
+  position: absolute;
+ margin-bottom: 15px;
+ top: 0;
+ left: 0;
+@include border-radius-opt(8px, 8px, 0px, 0px);
+ border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.bg-container {
+  margin-bottom: 75px;
+}

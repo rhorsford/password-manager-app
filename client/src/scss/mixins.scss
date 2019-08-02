@@ -91,6 +91,22 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
+ * Border-Radius choise Mixin
+ */
+
+@mixin border-radius-opt($top, $left, $down, $right){
+  border-radius: $top $left $down $right;
+  -webkit-border-radius: $top $left $down $right;
+  -moz-border-radius: $top $left $down $right;
+}
+/*
+   //Usages
+   @include border-radius-opt(8px, 8px, 8px 8px);
+ */
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
  * FlexBox Mixins
  */
 

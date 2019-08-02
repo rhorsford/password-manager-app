@@ -29,6 +29,13 @@
    @include border-radius(8px);
  */
 /*
+ * Border-Radius choise Mixin
+ */
+/*
+   //Usages
+   @include border-radius-opt(8px, 8px, 8px 8px);
+ */
+/*
  * FlexBox Mixins
  */
 /*
@@ -115,12 +122,19 @@
   float: left; }
   .input-field label {
     text-align: left;
-    width: 100px;
+    width: 100%;
     float: left;
     font-weight: 600; }
+  .input-field .red-text {
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+    float: left;
+    display: block;
+    color: rgba(255, 0, 15, 0.84); }
   .input-field input {
     width: 100%; }
-    .input-field input[type=email], .input-field input[type=password] {
+    .input-field input[type=email], .input-field input[type=password], .input-field input[type=text] {
       outline: 1px;
       border: 1px solid #555;
       background-color: #fff !important;
@@ -130,6 +144,23 @@
       -moz-border-radius: 5px; }
   .input-field:last-child {
     margin-bottom: 0; }
+
+.bg {
+  background: url("./img/bgimg.jpg") no-repeat fixed center;
+  background-size: cover;
+  height: 150px;
+  width: 100%;
+  position: absolute;
+  margin-bottom: 15px;
+  top: 0;
+  left: 0;
+  border-radius: 8px 8px 0px 0px;
+  -webkit-border-radius: 8px 8px 0px 0px;
+  -moz-border-radius: 8px 8px 0px 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+
+.bg-container {
+  margin-bottom: 75px; }
 
 *, *:before, *:after {
   box-sizing: border-box; }

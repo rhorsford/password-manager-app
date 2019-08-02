@@ -42,13 +42,22 @@
   float: left;
   label{
     text-align: left;
-    width: 100px;
+    width: 100%;
     float: left;
     font-weight: 600;
   }
+
+  .red-text {
+    font-weight: 600;
+    text-align:left;
+    width: 100%;
+    float: left;
+    display: block;
+    color: rgba(255, 0, 15, 0.84);
+  }
   input{
     width: 100%;
-    &[type=email], &[type=password]{
+    &[type=email], &[type=password], &[type=text]{
       outline: 1px;
       border: 1px solid #555;
       background-color:#fff!important;
