@@ -8,8 +8,6 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "watch:sass":"node-sass src/App.scss src/App.css -w",
-    "sass": "npm start watch:sass",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [

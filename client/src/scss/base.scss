@@ -3,6 +3,7 @@
 //Buttons
 
 .btn-primary {
+  padding: 10px 15px;
   background: -moz-linear-gradient(top, #33a6cc 50%, #0099cc 50%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #33a6cc), color-stop(50%, #0099cc)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #33a6cc 50%, #0099cc 50%); /* Chrome10+,Safari5.1+ */
@@ -32,4 +33,31 @@
   }
 }
 
+//form input styles
 
+.input-field {
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  float: left;
+  label{
+    text-align: left;
+    width: 100px;
+    float: left;
+    font-weight: 600;
+  }
+  input{
+    width: 100%;
+    &[type=email], &[type=password]{
+      outline: 1px;
+      border: 1px solid #555;
+      background-color:#fff!important;
+      padding: 10px 15px;
+      @include border-radius(5px);
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
