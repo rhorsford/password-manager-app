@@ -55,18 +55,25 @@ class Register extends Component {
         <div className="container valign-wrapper">
           <div className="login row v-align">
             <div className="panel col-6 p-4">
+              <div className="bg"></div>
+
+              <div className="col-12 bg-container">
+                <h1>
+                  Register
+                </h1>
+
+                <p>
+                  Please register your details here
+                </p>
+
+              </div>
               <div className="col s8 offset-s2">
-                <Link to="/" className="btn-flat waves-effect">
-                  <i className="material-icons left">keyboard_backspace</i> Back to
-                  home
-                </Link>
+                <p className="grey-text text-darken-1">
+                  Already have an account? <Link to="/login">Log in</Link>
+                </p>
                 <div className="col s12">
-                  <h4>
-                    <b>Register</b> below
-                  </h4>
-                  <p className="grey-text text-darken-1">
-                    Already have an account? <Link to="/login">Log in</Link>
-                  </p>
+
+
                 </div>
                 <form noValidate onSubmit={this.onSubmit}>
                   <div className="input-field">
@@ -136,6 +143,10 @@ class Register extends Component {
                     </button>
                   </div>
                 </form>
+                <Link to="/" className="btn-flat waves-effect">
+                  <i className="material-icons left">keyboard_backspace</i> Back to
+                  home
+                </Link>
               </div>
             </div>
           </div>

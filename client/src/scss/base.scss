@@ -64,6 +64,13 @@
       padding: 10px 15px;
       @include border-radius(5px);
     }
+
+  }
+  input, textarea, select{
+    &:-webkit-autofill{
+      background-color: white !important;
+    }
+
   }
 
   &:last-child {
