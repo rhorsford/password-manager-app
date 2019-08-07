@@ -62,14 +62,14 @@
  */
 
 @mixin box-shadow($hLen, $vLen, $blurR, $spreadR, $r, $g, $b, $opacity) {
-  -webkit-box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
-  -moz-box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
-  box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
+  -webkit-box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
+  -moz-box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
+  box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
 }
 
 /*
    //Usages
-   @include border-shading(10px 10px 5px 0px 0,0,0,0.75);
+   @include box-shadow(10px, 10px, 5px, 0px, 0,0,0,0.75);
  */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

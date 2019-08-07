@@ -1,3 +1,21 @@
+h1, h2, h3, h4, p {
+  font-family: 'Lato', sans-serif; }
+
+h3 {
+  font-size: 1.25rem;
+  text-transform: uppercase; }
+  h3.underline {
+    position: relative;
+    margin-bottom: 20px; }
+    h3.underline:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 30px;
+      height: 2px;
+      background-color: #83bedf; }
+
 /*
  * Media Query BreakPoints
  */
@@ -19,7 +37,7 @@
  */
 /*
    //Usages
-   @include border-shading(10px 10px 5px 0px 0,0,0,0.75);
+   @include box-shadow(10px, 10px, 5px, 0px, 0,0,0,0.75);
  */
 /*
  * Border-Radius Mixin
@@ -237,6 +255,73 @@ nav {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+@media (min-width: 1200px) {
+  .dashboard {
+    max-width: calc(100% - 10em); } }
+.dashboard .row {
+  width: 100%; }
+.dashboard .panel {
+  background-color: #f7f8fa;
+  overflow: hidden; }
+  .dashboard .panel [class^="col"] {
+    padding-right: 0;
+    padding-left: 0; }
+  .dashboard .panel .col-3 {
+    background-color: #525a65; }
+    .dashboard .panel .col-3 h2, .dashboard .panel .col-3 p, .dashboard .panel .col-3 i, .dashboard .panel .col-3 a {
+      color: #fff; }
+    .dashboard .panel .col-3 ul {
+      margin-top: 30px; }
+      .dashboard .panel .col-3 ul li {
+        text-decoration: none;
+        list-style: none;
+        text-align: left;
+        margin-bottom: 30px; }
+        .dashboard .panel .col-3 ul li:last-child {
+          margin-bottom: 0; }
+        .dashboard .panel .col-3 ul li a {
+          font-size: 1.2rem; }
+.dashboard .metrics {
+  background-color: #fff;
+  -webkit-box-shadow: 2px 0px 9px 0px rgba(180, 180, 180, 0.16);
+  -moz-box-shadow: 2px 0px 9px 0px rgba(180, 180, 180, 0.16);
+  box-shadow: 2px 0px 9px 0px rgba(180, 180, 180, 0.16); }
+.dashboard .col-4.metrics {
+  max-width: calc(33.33333% - 1em);
+  text-align: left;
+  padding: 1rem; }
+  .dashboard .col-4.metrics:nth-child(3n - 1) {
+    margin-left: 1.5em;
+    margin-right: 1.5em; }
+  .dashboard .col-4.metrics:nth-child(n + 4) {
+    margin-top: 1.5em; }
+  .dashboard .col-4.metrics .statistics {
+    font-weight: 600;
+    font-size: 2em; }
+.dashboard nav.user-details {
+  background-color: #fff;
+  float: left; }
+  .dashboard nav.user-details a {
+    float: right;
+    color: #333;
+    padding: 15px 20px;
+    text-decoration: none; }
+  .dashboard nav.user-details .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 50px;
+    right: 0; }
+  .dashboard nav.user-details .dropdown {
+    position: relative;
+    width: 50%;
+    float: right; }
+  .dashboard nav.user-details .dropdown:hover .dropdown-content {
+    display: block; }
+
 .App {
   text-align: center; }
 

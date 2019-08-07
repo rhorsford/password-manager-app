@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import {Link} from "react-router-dom";
 
 class Dashboard extends Component {
   onLogoutClick = e => {
@@ -10,29 +11,71 @@ class Dashboard extends Component {
   };
   render() {
     const { user } = this.props.auth;
+
+    const passwordType = ["Total", "Email", "General", "Internet", "Homebanking", "Other"];
+
     return (
-        <div className="container valign-wrapper">
-          <div className="row">
-            <div className="col s12 center-align">
-              <h4>
-                <b>Hey there,</b> {user.name.split(" ")[0]}
-                <p className="flow-text grey-text text-darken-1">
-                  You are logged into a full-stack{" "}
-                  <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-                </p>
-              </h4>
-              <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  onClick={this.onLogoutClick}
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-              >
-                Logout
-              </button>
+
+
+        <div className="dashboard container v-align">
+          <div className="row panel">
+            <div className="col-3 p-4">
+              <h2>Control Panel</h2>
+              <ul>
+                <li>
+                  <Link to="/">
+                    Home</Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    Email Password</Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    General Password</Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    Internet Password</Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    Homebanking Password</Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    Other Password</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="col-9">
+              <nav className="user-details">
+                <div className="dropdown">
+                  <a className="dropbtn" href="#">{user.name.split(" ")[0]}
+                    <i className="fi-xwsdxl-caret-solid"></i>
+                </a>
+                  <div className="dropdown-content">
+                    <a
+                        onClick={this.onLogoutClick}
+                        className="btn"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </nav>
+              <div className="row m-0 p-4">
+                {passwordType.map(i => {
+                  return (
+                  <div className="col-4 metrics" key={i.toString()}>
+                    <h3 className="underline">{i} Password</h3>
+                      <span className="statistics">
+                      0
+                      </span>
+                  </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>

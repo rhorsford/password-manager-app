@@ -1,0 +1,113 @@
+//Dashboard
+
+.dashboard {
+
+  @media (min-width:1200px){
+    max-width: calc(100% - 10em)
+}
+  .row {
+    width: 100%;
+  }
+
+  .panel {
+    background-color: #f7f8fa;
+    overflow: hidden;
+
+    [class^="col"]{
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .col-3 {
+     background-color: #525a65;
+
+      h2, p, i, a {
+        color: #fff;
+      }
+
+      ul {
+        margin-top: 30px;
+        li {
+          text-decoration: none;
+          list-style:none;
+          text-align: left;
+          margin-bottom: 30px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+          a {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+
+// Metrics style
+
+  .metrics {
+   background-color: #fff;
+    @include box-shadow(2px, 0px, 9px, 0px, 180, 180, 180, 0.16);
+  }
+
+  .col-4{
+
+    &.metrics {
+      max-width: calc(33.33333% - 1em);
+      text-align: left;
+      padding: 1rem;
+      &:nth-child(3n - 1) {
+        margin-left: 1.5em;
+        margin-right: 1.5em;
+      }
+
+      &:nth-child(n + 4) {
+        margin-top: 1.5em;
+      }
+
+      .statistics {
+        font-weight: 600;
+        font-size: 2em;
+      }
+    }
+  }
+
+// Nav Dropdown styles
+
+  nav{
+    &.user-details {
+      //overflow: hidden;
+      background-color: #fff;
+      float: left;
+
+
+      a {
+        float: right;
+        color: #333;
+        padding: 15px 20px;
+        text-decoration: none;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        top: 50px;
+        right: 0;
+      }
+      .dropdown {
+        position: relative;
+        width: 50%;
+        float: right;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+    }
+  }
+}
