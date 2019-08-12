@@ -27,6 +27,14 @@ nav {
   }
 }
 
+//Heading
+
+.heading {
+  h2 {
+    margin-top: 20px;
+  }
+}
+
 //layout
 
 .btn {
@@ -51,7 +59,7 @@ nav {
   @include border-radius(8px);
   @include opacity(0.8);
   @include box-shadow(1px, 1px, 5px, 1px, 0, 0, 0, 0.45);
-  min-height: 350px;
+  min-height: 650px;
   height: 100%;
 }
 

@@ -5,6 +5,7 @@ import "./layout.scss";
 class SidePanel extends Component {
 
   render() {
+    let index = 0;
     const linkPath = [
       {
         url: "/dashboard",
@@ -37,8 +38,9 @@ class SidePanel extends Component {
           <h2>Control Panel</h2>
           <ul>
             {linkPath.map(link => {
+             ++ index;
               return (
-                  <li key={link}>
+                  <li key={this.props.list+'-'+index}>
                     <NavLink to={link.url} activeClassName="active">
                       {link.name}
                     </NavLink>

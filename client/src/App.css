@@ -139,6 +139,12 @@ h3 {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#267c99', endColorstr='#007299', GradientType=0);
     /* IE6-9 */ }
 
+.btn-blue {
+  background-color: #33a6cc;
+  color: white; }
+  .btn-blue i {
+    color: white; }
+
 .input-field {
   margin-bottom: 20px;
   display: block;
@@ -220,6 +226,9 @@ nav {
     nav .nav-wrapper a {
       color: #fff; }
 
+.heading h2 {
+  margin-top: 20px; }
+
 .btn {
   max-width: 200px;
   width: 100%;
@@ -253,7 +262,7 @@ nav {
   -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
   -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
-  min-height: 350px;
+  min-height: 650px;
   height: 100%; }
 
 .img-container {
@@ -333,6 +342,25 @@ nav {
     float: right; }
   .dashboard nav.user-details .dropdown:hover .dropdown-content {
     display: block; }
+
+.password-container {
+  width: calc(100% - 2em);
+  border: 1px solid #525a65;
+  margin: 1em;
+  height: 50%; }
+  .password-container table {
+    width: 100%; }
+    .password-container table thead {
+      background-color: #eaebed; }
+    .password-container table tbody {
+      background-color: #fff; }
+      .password-container table tbody tr {
+        border-bottom: 1px solid #eaebed; }
+        .password-container table tbody tr td {
+          padding: 5px 0; }
+
+.details .btn.btn-blue {
+  margin-top: 15px; }
 
 .App {
   text-align: center; }
