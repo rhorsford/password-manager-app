@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import SidePanel from "../layout/SidePanel";
-import {Link} from "react-router-dom";
 
 class UserPanel extends Component {
   onLogoutClick = e => {

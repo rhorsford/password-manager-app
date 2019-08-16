@@ -162,9 +162,9 @@ h3 {
     float: left;
     display: block;
     color: rgba(255, 0, 15, 0.84); }
-  .input-field input {
+  .input-field input, .input-field textarea {
     width: 100%; }
-    .input-field input[type=email], .input-field input[type=password], .input-field input[type=text] {
+    .input-field input[type=email], .input-field textarea, .input-field input[type=password], .input-field textarea[type=password], .input-field input[type=text], .input-field textarea[type=text] {
       outline: 1px;
       border: 1px solid #555;
       background-color: #fff !important;
@@ -172,7 +172,7 @@ h3 {
       border-radius: 5px;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px; }
-  .input-field input:-webkit-autofill, .input-field textarea:-webkit-autofill, .input-field select:-webkit-autofill {
+  .input-field input:-webkit-autofill, .input-field textarea:-webkit-autofill, .input-field textarea:-webkit-autofill, .input-field select:-webkit-autofill {
     background-color: white !important; }
   .input-field:last-child {
     margin-bottom: 0; }
@@ -218,6 +218,19 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
+  body.popup-bg:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: 1; }
 
 nav {
   width: 100%; }
@@ -262,8 +275,9 @@ nav {
   -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
   -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
-  min-height: 650px;
   height: 100%; }
+  .panel.set-height {
+    min-height: 650px; }
 
 .img-container {
   margin-bottom: 25px; }
@@ -361,6 +375,34 @@ nav {
 
 .details .btn.btn-blue {
   margin-top: 15px; }
+
+.popup {
+  position: absolute;
+  margin: 0 auto;
+  background-color: #fff;
+  z-index: 1;
+  width: 600px; }
+  .popup .row {
+    width: auto; }
+  .popup a.closebtn {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 25px;
+    top: 25px;
+    z-index: 1; }
+    .popup a.closebtn:before, .popup a.closebtn:after {
+      position: absolute;
+      left: 9px;
+      content: '';
+      height: 20px;
+      width: 3px;
+      background-color: #333;
+      display: block; }
+    .popup a.closebtn:before {
+      transform: rotate(45deg); }
+    .popup a.closebtn:after {
+      transform: rotate(-45deg); }
 
 .App {
   text-align: center; }

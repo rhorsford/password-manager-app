@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create Schema
-const AccInfoSchema = new Schema({
+const RecordSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -11,14 +11,14 @@ const AccInfoSchema = new Schema({
     required: true
   },
   type: {
-    type: Option,
+    type: String,
     required: true
   },
   password: {
     type: String,
     required: true
   },
-  confirmPassword: {
+  confirm_password: {
     type: String,
     required: true
   },
@@ -33,4 +33,4 @@ const AccInfoSchema = new Schema({
     default: Date.now
   }
 });
-module.exports = AccountInfo = mongoose.model("accountInfo", AccInfoSchema);
+module.exports = Record = mongoose.model("records", RecordSchema);

@@ -4,7 +4,8 @@ import {logoutUser} from "../../actions/authActions";
 import SidePanel from "../layout/SidePanel";
 import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
-import Popup from "../popup/popup";
+import Popup from "../popup/Popup";
+import PropTypes from "prop-types";
 
 class Email extends Component {
 
@@ -18,6 +19,7 @@ class Email extends Component {
     this.setState({
       showPopup: !this.state.showPopup
     });
+    document.body.classList.toggle("popup-bg");
   };
 
   render() {
@@ -27,7 +29,7 @@ class Email extends Component {
 
     return (
     <div className="dashboard container v-align">
-      <div className="row panel">
+      <div className="row panel set-height">
         <SidePanel list={emailList} />
 
         <div className="col-9">
@@ -70,20 +72,23 @@ class Email extends Component {
               <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fi-xwsuxl-plus-solid"></i> Add new Login</button>
             </div>
           </div>
-          {this.state.showPopup ?
-              <Popup
-                  text='Click "Close Button" to hide popup'
-                  closePopup={this.onShowPopup.bind(this)}
-              />
-              : null
-          }
         </div>
       </div>
+      {this.state.showPopup ?
+          <Popup
+              text='Click "Close Button" to hide popup'
+              closePopup={this.onShowPopup.bind(this)}
+          />
+          : null
+      }
     </div>
   );
   }
 }
-
+Email.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
 const mapStateToProps = state => ({
   auth: state.auth
 });

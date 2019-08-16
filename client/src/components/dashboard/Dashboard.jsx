@@ -19,7 +19,7 @@ class Dashboard extends Component {
     return (
 
         <div className="dashboard container v-align">
-          <div className="row panel">
+          <div className="row panel set-height">
               <SidePanel list={dashList} />
             <div className="col-9">
               <UserPanel />
