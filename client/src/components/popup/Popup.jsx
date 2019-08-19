@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import PageHeading from "../layout/PageHeading";
 import classnames from "classnames";
 import {userPassword} from "../../actions/userPasswords";
-
+import { logoutUser } from "../../actions/authActions";
 
 
 class Popup extends Component {
@@ -54,17 +54,11 @@ class Popup extends Component {
       url: this.state.url,
       comments: this.state.comments,
     };
-
-    // axios.post('http://localhost:5000/api/newrecord/email', {newRecord})
-    //
-    // .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
     this.props.userPassword(newRecord, this.props.history);
   };
 
   render() {
+    const { user } = this.props.auth;
     const {errors} = this.state;
     const popupHead = "Email Heading";
     return (
@@ -82,7 +76,8 @@ class Popup extends Component {
                   </span>
                   <input
                       onChange={this.onChange}
-                      value={this.state.name}
+                      value={user.name.split(" ")[0]}
+                      // value={this.state.name}
                       error={errors.name}
                       id="name"
                       type="text"

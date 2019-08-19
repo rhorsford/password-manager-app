@@ -18,6 +18,47 @@ export const userPassword = (newRecord, history) => dispatch => {
           })
       );
 };
+
+
+export const getUserPassword = (records) => dispatch => {
+  axios .get("/api/records/email", records)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+
+  // axios
+  //     .get("/api/records/email", {
+  //       params: {
+  //         name: "richard"
+  //       }
+  //     })
+  //     .then(response =>
+  //         response.data.results.map(record => ({
+  //           name: `${record.name}`,
+  //           title: `${record.title}`,
+  //           password: `${record.password}`,
+  //           confirm_password: `${record.confirm_password}`,
+  //           url: `${record.url}`,
+  //           comments: `${record.comments}`,
+  //         }))
+  //     )
+  //     // We can still use the `.catch()` method since axios is promise-based
+  //     .catch(err =>
+  //         dispatch({
+  //           type: GET_ERRORS,
+  //           payload: err.response.data
+  //         })
+  //     );
+
+};
+      // .catch(error => this.setState({error, isLoading: false}));
+// }
 // Login - get user token
 // export const loginUser = userData => dispatch => {
 //   axios

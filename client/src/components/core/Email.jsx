@@ -6,13 +6,39 @@ import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
+import axios from "axios";
+import {getUserPassword} from "../../actions/userPasswords"
 
 class Email extends Component {
 
   constructor(props){
     super(props);
-    this.state = { showPopup: false };
+    this.state = { showPopup: false,
+      name: "",
+      title: "",
+      type: "email",
+      password: "",
+      confirm_password: "",
+      url: "",
+      comments: "",
+      date: "",
+      errors: {},
+      isLoading: true,
+      records:[]
+    };
   }
+
+  componentDidMount() {
+    this.getPassword();
+  };
+
+  getPassword =()=> {
+    fetch('/api/records/email')
+        .then((data) => data.json())
+        .then((res) => this.setState({ records: res.data, isLoading: false }));
+
+};
+
 
   onShowPopup = e => {
     e.preventDefault();
@@ -23,10 +49,12 @@ class Email extends Component {
   };
 
   render() {
-    const PassTable = ["Title", "type", "url", "password", "date"];
+    let index = 0;
+    const { isLoading, records } = this.state;
+    const PassTable = ["Title", "type", "password", "url",  "date"];
     const emailList = "email-list";
     const emailHead = "Email Passwords";
-
+    console.log(this.state.records);
     return (
     <div className="dashboard container v-align">
       <div className="row panel set-height">
@@ -47,23 +75,25 @@ class Email extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                <td>
-                  test cotent
-                </td>
-                 <td>
-                  test cotent
-                </td>
-                 <td>
-                  test cotent
-                </td>
-                 <td>
-                  test cotent
-                </td>
-                 <td>
-                  test cotent
-                </td>
-                </tr>
+                  {!isLoading ? (
+                      records.map(record => {
+                        ++ index;
+                            const{name, title, type, password, url, date} = record;
+                            return (
+                                <tr key={name+ '-'+index}>
+                                  <td>{title}</td>
+                                  <td>{type}</td>
+                                  <td>{password}</td>
+                                  <td>{url}</td>
+                                  <td>{date()}</td>
+                                </tr>
+                            );
+                          })
+                  ):(
+                      <tr>
+                      <td>Loading...</td>
+                      </tr>
+                  )}
               </tbody>
             </table>
           </div>
@@ -87,6 +117,7 @@ class Email extends Component {
 }
 Email.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  getUserPassword: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -95,5 +126,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { logoutUser }
+    { logoutUser, getUserPassword }
 )(Email);
