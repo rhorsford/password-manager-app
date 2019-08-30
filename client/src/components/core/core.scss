@@ -4,7 +4,9 @@
   width: calc(100% - 2em);
   border: 1px solid #525a65;
   margin: 1em;
-  height: 50%;
+  height: 420px;
+  overflow-y: scroll;
+  overflow-x: auto;
 
   table {
     width: 100%;

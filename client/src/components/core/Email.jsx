@@ -24,7 +24,8 @@ class Email extends Component {
       date: "",
       errors: {},
       isLoading: true,
-      records:[]
+      records:[],
+      valid: false
     };
   }
 
@@ -33,7 +34,8 @@ class Email extends Component {
   };
 
   getPassword =()=> {
-    fetch('/api/records/email')
+    const { user } = this.props.auth;
+    fetch('/api/records/email/' + user.name)
         .then((data) => data.json())
         .then((res) => this.setState({ records: res.data, isLoading: false }));
 
@@ -50,11 +52,12 @@ class Email extends Component {
 
   render() {
     let index = 0;
+
     const { isLoading, records } = this.state;
     const PassTable = ["Title", "type", "password", "url",  "date"];
     const emailList = "email-list";
     const emailHead = "Email Passwords";
-    console.log(this.state.records);
+    let{ user } = this.props.auth;
     return (
     <div className="dashboard container v-align">
       <div className="row panel set-height">
@@ -85,7 +88,7 @@ class Email extends Component {
                                   <td>{type}</td>
                                   <td>{password}</td>
                                   <td>{url}</td>
-                                  <td>{date()}</td>
+                                  <td>{date}</td>
                                 </tr>
                             );
                           })
@@ -108,6 +111,8 @@ class Email extends Component {
           <Popup
               text='Click "Close Button" to hide popup'
               closePopup={this.onShowPopup.bind(this)}
+              user={ user }
+              errorCheck={this.errorCheck.bind(this)}
           />
           : null
       }

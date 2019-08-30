@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -7,21 +8,51 @@ import {
   USER_LOADING
 } from "./types";
 //Post User details
-export const userPassword = (newRecord, history) => dispatch => {
-  axios
-      .post("/api/records/email", newRecord)
-      .then(res => history.push("/email")) // re-direct to login on successful register
-      .catch(err =>
-          dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
-          })
-      );
+const valid = true;
+
+export const validChecker = (val) => {
+
+  console.log(val);
+
+  const newVar = val;
+
+  return newVar;
+
 };
+
+// export const userPassword = (newRecord, history) => dispatch => {
+//   const that = this;
+// axios
+//       .post("/api/records/email", newRecord)
+//     .then((response) => {
+//       console.log(response);
+//       history.push("/email");
+//       that.setState({showPopup: false})
+//     }, (error) => {
+//       dispatch({
+//               type: GET_ERRORS,
+//               payload: error.response.data
+//             });
+//       console.log(error);
+//     });
+//
+// };
+      // .then(res => {return{valid}}) // re-direct to login on successful register
+      // .catch(err =>
+      //     dispatch({
+      //       type: GET_ERRORS,
+      //       payload: err.response.data
+      //     })
+      // );
+
+
+// };
+
+
 
 
 export const getUserPassword = (records) => dispatch => {
-  axios .get("/api/records/email", records)
+  axios .get("/api/records/email/", records)
       .then(response => {
         console.log(response.data);
       })
@@ -31,6 +62,21 @@ export const getUserPassword = (records) => dispatch => {
           payload: err.response.data
         })
       );
+
+};
+
+// export const getUserPassword = (records) => dispatch => {
+//   axios .get("/api/records/email", records)
+//       .then(response => {
+//         console.log(response.data);
+//       })
+//       .catch(err =>
+//           dispatch({
+//             type: GET_ERRORS,
+//             payload: err.response.data
+//           })
+//       );
+// };
 
   // axios
   //     .get("/api/records/email", {
@@ -56,7 +102,7 @@ export const getUserPassword = (records) => dispatch => {
   //         })
   //     );
 
-};
+
       // .catch(error => this.setState({error, isLoading: false}));
 // }
 // Login - get user token

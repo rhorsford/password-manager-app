@@ -19,6 +19,7 @@ router.post('/email', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   } else {
+    const valid = isValid;
     const newRecord = new Record({
       name: req.body.name,
       title: req.body.title,
@@ -28,6 +29,7 @@ router.post('/email', (req, res) => {
       url: req.body.url,
       comments: req.body.comments
     });
+
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newRecord.password, salt, (err, hash) => {
@@ -64,15 +66,33 @@ router.post('/email', (req, res) => {
   }
 });
 
-router.get('/email', (req, res) => {
-  Record.find((err, records) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: records });
-  });
+// router.get('/email/:name', (req, res) => {
+//   Record.find((err, records) => {
+//     if (err) return res.json({ success: false, error: err });
+//     return res.json({ success: true, data: records });
+//   });
+//
+//
+// });
 
 
+
+
+router.get('/email/:name', (req, res) => {
+  return Record.find({name: req.params.name}).then(function(record) {
+    res.json({data: record })
+  })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
+  // Record.find({name: "test"})
+  //     .then(record => res.send(record))
+  //     .catch(err => console.log(err));
 });
 
+//
 
 
 module.exports = router;
