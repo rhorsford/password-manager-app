@@ -32,6 +32,7 @@ module.exports = function validateUserDetailsInput(data) {
   }
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
+
   };
 };

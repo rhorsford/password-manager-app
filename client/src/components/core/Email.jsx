@@ -6,8 +6,7 @@ import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
-import axios from "axios";
-import {getUserPassword} from "../../actions/userPasswords"
+import {getEmailUserPassword} from "../../actions/userPasswords"
 
 class Email extends Component {
 
@@ -50,11 +49,18 @@ class Email extends Component {
     document.body.classList.toggle("popup-bg");
   };
 
+  editRecord = e => {
+    console.log(e.target);
+  };
+
+  removeRecord = e => {
+    console.log(e.target);
+  };
   render() {
     let index = 0;
 
     const { isLoading, records } = this.state;
-    const PassTable = ["Title", "type", "password", "url",  "date"];
+    const PassTable = ["Title", "type", "password", "url",  "date",""];
     const emailList = "email-list";
     const emailHead = "Email Passwords";
     let{ user } = this.props.auth;
@@ -73,6 +79,7 @@ class Email extends Component {
                   {PassTable.map(i => {
                     return (
                     <th key={'table-head-'+i}>{i}</th>
+
                     )
                   })}
                 </tr>
@@ -86,9 +93,17 @@ class Email extends Component {
                                 <tr key={name+ '-'+index}>
                                   <td>{title}</td>
                                   <td>{type}</td>
-                                  <td>{password}</td>
+                                  <td><span>{password}</span></td>
                                   <td>{url}</td>
                                   <td>{date}</td>
+                                  <td>
+                                    <span onClick={this.editRecord}>
+                                      <i className="fas fa-edit"></i>
+                                    </span>
+                                    <span onClick={this.removeRecord}>
+                                      <i className="fas fa-trash"></i>
+                                    </span>
+                                  </td>
                                 </tr>
                             );
                           })
@@ -102,7 +117,7 @@ class Email extends Component {
           </div>
           <div className="row">
             <div className="col-12 details">
-              <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fi-xwsuxl-plus-solid"></i> Add new Login</button>
+              <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fas fa-plus"></i> Add new Login</button>
             </div>
           </div>
         </div>
@@ -112,7 +127,8 @@ class Email extends Component {
               text='Click "Close Button" to hide popup'
               closePopup={this.onShowPopup.bind(this)}
               user={ user }
-              errorCheck={this.errorCheck.bind(this)}
+              updateLogin={this.getPassword.bind(this)}
+              passType = { this.state.type }
           />
           : null
       }
@@ -122,7 +138,7 @@ class Email extends Component {
 }
 Email.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  getUserPassword: PropTypes.func.isRequired,
+  getEmailUserPassword: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -131,5 +147,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { logoutUser, getUserPassword }
+    { logoutUser, getEmailUserPassword }
 )(Email);

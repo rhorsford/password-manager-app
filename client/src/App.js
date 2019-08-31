@@ -18,6 +18,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Email from "./components/core/Email";
+import General from "./components/core/General";
 import Popup from "./components/popup/Popup";
 
 // Check for token to keep user logged in
@@ -52,6 +53,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/email" component={Email} />
+              <PrivateRoute exact path="/general" component={General} />
               <PrivateRoute exact path="/email" component={Popup} />
             </Switch>
           </div>

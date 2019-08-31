@@ -6,12 +6,11 @@ import PageHeading from "../layout/PageHeading";
 import classnames from "classnames";
 import {userPassword, validChecker} from "../../actions/userPasswords";
 
-// import validateRecordInput from  "validation/userPassword";
-import { logoutUser } from "../../actions/authActions";
+import validateRecordInput from "../../../../validation/userPassword";
+import {logoutUser} from "../../actions/authActions";
 import axios from "axios";
 import {GET_ERRORS} from "../../actions/types";
 
-// const { user } =
 
 class Popup extends Component {
   constructor() {
@@ -19,7 +18,7 @@ class Popup extends Component {
     this.state = {
       name: "",
       title: "",
-      type: "email",
+      type: "",
       password: "",
       confirm_password: "",
       url: "",
@@ -43,44 +42,27 @@ class Popup extends Component {
     }
   }
 
-
-
-  onChange = e  => {
+  onChange = e => {
     const {errors} = this.state;
     this.setState({[e.target.id]: e.target.value});
-
-    // console.log(e.target.value)
-    // console.log(e.target.id)
-    // console.log(errors['title'])
-      if(e.target.classList.contains("invalid")) {
-        // this.deleteTask(e.target.id);
-        this.props.errorCheck(e.target.id)
-      }
+    console.log(this.props.passType);
   };
 
   deleteTask = e => {
-      const errors = this.state.errors;
-      const updatedErrors = Object.keys(errors).filter(error => error.e !== e);
-    this.setState({errors: updatedErrors });
+    const errors = this.state.errors;
+    const updatedErrors = Object.keys(errors).filter(error => error.e !== e);
+    this.setState({errors: updatedErrors});
 
   };
 
 
-  isEmpty =obj => {
-    for(var key in obj) {
-      if(obj.hasOwnProperty(key))
+  isEmpty = obj => {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key))
         return false;
     }
     return true;
   };
-
-  errorStateCheck = () => {
-    if(this.isEmpty(this.state.errors)){
-      return true
-    }
-  }
-
-
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -88,65 +70,38 @@ class Popup extends Component {
     const newRecord = {
       name: this.props.user.name,
       title: this.state.title,
-      type: this.state.type,
+      type: this.props.passType,
       password: this.state.password,
       confirm_password: this.state.confirm_password,
       url: this.state.url,
       comments: this.state.comments,
     };
 
+    let errors = validateRecordInput(newRecord).errors;
+    validateRecordInput(newRecord);
 
-  // export consts userPassword = (newRecord, history) => dispatch => {
-
-  axios
-      .post("/api/records/email", newRecord)
-      .then((response) => {
-        console.log(response);
-        history.push("/email");
-        this.setState({showPopup: false})
-      }, (error) => {
-        // dispatch({
-        //   type: GET_ERRORS,
-        //   payload: error.response.data
-        // });
-        console.log(error);
-      });
-
-// };
-
-    // this.userPassword(newRecord, this.props.history);
-
-   //  var val = validChecker();
-   // console.log(val);
-    // if(response.status === 200) {
-    //   // validChecker(response.status);
-    // }
-
-    // const test = this.props.userPassword();
-
-    // console.log(test)
-
-
-
-
-
-    // const foo = this.props.userPassword(newRecord, this.props.history);
-
-    // console.log(foo.validChecker(e));
-
-    // if (this.props.userPassword) {
-    //   console.log("false")
-    // } else {
-    //   console.log("true")
-    // }
-    //
-    // if(e.target.classList.contains("invalid")) {
-    //   // this.deleteTask(e.target.id);
-    //   this.props.errorCheck(e.target.id)
-    // }
+    if (validateRecordInput(newRecord).isValid === false) {
+      this.setState({errors: errors})
+    } else {
+      axios
+          .post("/api/records/email", newRecord)
+          .then((response) => {
+            console.log(response);
+            this.props.closePopup(e);
+            this.props.updateLogin();
+          }, (error) => {
+            console.log(error);
+            return {
+              type: GET_ERRORS,
+              payload: error.response.data
+            };
+          });
+    }
   };
 
   render() {
+
+
     const {errors} = this.state;
     const popupHead = "Email Heading";
     // console.log(errors);
@@ -235,7 +190,6 @@ class Popup extends Component {
                   <button
                       type="submit"
                       className="btn btn-primary"
-                      // onClick={this.errorStateCheck ? this.props.closePopup : null}
                   >
                     Add Login
                   </button>
@@ -249,9 +203,9 @@ class Popup extends Component {
     );
   }
 }
+
 Popup.propTypes = {
-  // userPassword: PropTypes.func.isRequired,
-  // validChecker: PropTypes.func.isRequired,
+  validateRecordInput: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -261,6 +215,6 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    { userPassword }
+    {validateRecordInput}
 )(withRouter(Popup));
 

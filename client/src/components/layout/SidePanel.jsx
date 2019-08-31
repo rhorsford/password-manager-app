@@ -16,7 +16,7 @@ class SidePanel extends Component {
         name: "Email Password"
       },
       {
-        url: "/dashboard",
+        url: "/general",
         name: "General Password"
       },
       {

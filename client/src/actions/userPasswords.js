@@ -51,8 +51,8 @@ export const validChecker = (val) => {
 
 
 
-export const getUserPassword = (records) => dispatch => {
-  axios .get("/api/records/email/", records)
+export const getGeneralUserPassword = (records) => dispatch => {
+  axios .get("/api/records/general/", records)
       .then(response => {
         console.log(response.data);
       })
@@ -61,6 +61,21 @@ export const getUserPassword = (records) => dispatch => {
           type: GET_ERRORS,
           payload: err.response.data
         })
+      );
+
+};
+
+
+export const getEmailUserPassword = (records) => dispatch => {
+  axios .get("/api/records/email/", records)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err =>
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          })
       );
 
 };

@@ -16,7 +16,7 @@ class UserPanel extends Component {
         <nav className="user-details">
           <div className="dropdown">
             <a className="dropbtn" href="#">{user.name.split(" ")[0]}
-              <i className="fi-xwsdxl-caret-solid"></i>
+              <i className="fas fa-caret-down"></i>
             </a>
             <div className="dropdown-content">
               <a
