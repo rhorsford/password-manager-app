@@ -34,7 +34,7 @@ class Email extends Component {
 
   getPassword =()=> {
     const { user } = this.props.auth;
-    fetch('/api/records/email/' + user.name)
+    fetch('/api/records/email/' + user.name + '/' + this.state.type)
         .then((data) => data.json())
         .then((res) => this.setState({ records: res.data, isLoading: false }));
 

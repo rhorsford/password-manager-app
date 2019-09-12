@@ -54,7 +54,7 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/email" component={Email} />
               <PrivateRoute exact path="/general" component={General} />
-              <PrivateRoute exact path="/email" component={Popup} />
+              {/*<PrivateRoute exact path="/email" component={Popup} />*/}
             </Switch>
           </div>
           </Router>

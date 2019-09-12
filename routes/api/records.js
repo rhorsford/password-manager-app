@@ -13,8 +13,7 @@ const Record = require("../../models/Record");
 // @access Public
 
 
-router.post('/email', (req, res) => {
-
+postPasswords = (req, res) => {
   const {errors, isValid} = validateRecordInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -30,69 +29,77 @@ router.post('/email', (req, res) => {
       comments: req.body.comments
     });
 
+    newRecord
+        .save()
+        .then(record => res.json(record))
+        .catch(err => console.log(err));
 
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newRecord.password, salt, (err, hash) => {
-        if (err) throw err;
-        newRecord.password = hash;
-        newRecord.confirm_password = hash;
-
-        newRecord
-            .save()
-            .then(record => res.json(record))
-            .catch(err => console.log(err));
-        // newRecord.save((err) => {
-        //   if (err) return res.json({success: false, error: err});
-        //   return res.json({success: true});
-        // });
-      });
-    });
-
-    // newRecord
-    //     .save()
-    //     .then(records => res.json(records))
-    //     .catch(err => console.log(err));
-
-    //works
-    // newRecord.save((err) => {
-    //   if (err) return res.json({ success: false, error: err });
-    //   return res.json({ success: true });
-    // });
-
-    // Record.validateRecordInput(errors, isValid, (err) => {
-    //   if (err) return res.json({success: false, error: err});
-    //   return res.json({success: true});
+    // bcrypt.genSalt(10, (err, salt) => {
+    //   bcrypt.hash(newRecord.password, salt, (err, hash) => {
+    //     if (err) throw err;
+    //     newRecord.password = hash;
+    //     newRecord.confirm_password = hash;
+    //
+    //     newRecord
+    //         .save()
+    //         .then(record => res.json(record))
+    //         .catch(err => console.log(err));
+    //     // newRecord.save((err) => {
+    //     //   if (err) return res.json({success: false, error: err});
+    //     //   return res.json({success: true});
+    //     // });
+    //   });
     // });
   }
-});
+};
 
-// router.get('/email/:name', (req, res) => {
-//   Record.find((err, records) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true, data: records });
-//   });
-//
-//
-// });
-
-
-
-
-router.get('/email/:name', (req, res) => {
-  return Record.find({name: req.params.name}).then(function(record) {
+getPassMethod = (req, res) => {
+  return Record.find({name: req.params.name, type: req.params.type}).then(function(record) {
     res.json({data: record })
   })
       .catch(function (error) {
         // handle error
         console.log(error);
       })
+};
 
-  // Record.find({name: "test"})
-  //     .then(record => res.send(record))
-  //     .catch(err => console.log(err));
+editPassMethod = (req, res) => {
+  return Record.find({name: req.params.name, title: req.params.title}).then(function(fetchRecord) {
+    res.json({data: fetchRecord })
+  })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+};
+
+//Post requests
+router.post('/email', (req, res) => {
+  postPasswords(req, res)
 });
 
-//
+router.post('/general', (req, res) => {
+  postPasswords(req, res)
+});
+
+//Get requests
+
+router.get('/email/:name/:type', (req, res) => {
+  getPassMethod(req, res)
+});
+
+router.get('/general/:name/:type', (req, res) => {
+  getPassMethod(req, res)
+});
+
+router.get('/:title/:name', (req, res) => {
+  editPassMethod(req, res)
+});
+
+router.put('/update/:title/:name', (req, res) => {
+  editPassMethod(req, res)
+});
+
 
 
 module.exports = router;

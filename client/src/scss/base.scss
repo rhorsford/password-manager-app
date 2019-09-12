@@ -36,6 +36,7 @@
 .btn-blue {
   background-color: #33a6cc;
   color: white;
+
   i {
     color: white;
   }
@@ -48,7 +49,9 @@
   display: block;
   width: 100%;
   float: left;
-  label{
+  position: relative;
+
+  label {
     text-align: left;
     width: 100%;
     float: left;
@@ -57,21 +60,41 @@
 
   .red-text {
     font-weight: 600;
-    text-align:left;
+    text-align: left;
     width: 100%;
     float: left;
     display: block;
     color: rgba(255, 0, 15, 0.84);
   }
-  input{
+
+  i.fa-eye {
+    opacity: 0;
+    position: absolute;
+    top: 48px;
+    right: 15px;
+  }
+
+  &.show-pass {
+    i {
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  input {
     width: 100%;
-    &[type=email], &[type=password], &[type=text]{
+
+    &[type=email], &[type=password], &[type=text] {
       outline: 1px;
       border: 1px solid #555;
-      background-color:#fff!important;
+      background-color: #fff !important;
       padding: 10px 15px;
       @include border-radius(5px);
     }
+
   }
 
   textarea {
@@ -79,8 +102,8 @@
     @extend [type=email];
   }
 
-  input, textarea, select{
-    &:-webkit-autofill{
+  input, textarea, select {
+    &:-webkit-autofill {
       background-color: white !important;
     }
 

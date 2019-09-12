@@ -6,7 +6,7 @@ import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
-import {getGeneralUserPassword} from "../../actions/userPasswords"
+import {getGeneralUserPassword, getSingleUserPassword} from "../../actions/userPasswords"
 
 class General extends Component {
 
@@ -24,8 +24,12 @@ class General extends Component {
       errors: {},
       isLoading: true,
       records:[],
-      valid: false
+      editRecord:[],
+      valid: false,
+      editMode: false
     };
+
+    this.onShowPopup = this.onShowPopup.bind(this);
   }
 
   componentDidMount() {
@@ -34,9 +38,12 @@ class General extends Component {
 
   getPassword =()=> {
     const { user } = this.props.auth;
-    fetch('/api/records/general/' + user.name)
+    fetch('/api/records/general/' + user.name +'/'+ this.state.type)
         .then((data) => data.json())
-        .then((res) => this.setState({ records: res.data, isLoading: false }));
+        .then((res) => this.setState({ records: res.data, isLoading: false }))
+        .catch(error => {
+            console.log(error.response)
+        });
 
   };
 
@@ -49,9 +56,39 @@ class General extends Component {
     document.body.classList.toggle("popup-bg");
   };
 
-  editRecord = e => {
-    console.log(e.target);
+  getClosest = (elem, selector) => {
+    for ( ; elem && elem !== document; elem = elem.parentNode ) {
+      if ( elem.matches( selector ) ) return elem;
+    }
+    return null;
   };
+
+
+  editRecords = e => {
+    const { user } = this.props.auth;
+    console.log(e.target);
+   const parent = this.getClosest(e.target, "tr");
+   const sibling = parent.children;
+
+
+   console.log(sibling);
+    console.log(sibling[0]);
+    console.log(sibling[0].innerHTML);
+    const searchStr = sibling[0].innerHTML;
+
+    fetch('/api/records/' + searchStr +'/'+ user.name)
+        .then((data) => data.json())
+        .then((res) => this.setState({ editRecord: res.data}))
+        .catch(error => {
+          console.log(error.response)
+        });
+
+    this.setState({editMode: true});
+    this.setState({editReecords: this.props.editRecord});
+    this.onShowPopup(e)
+
+  };
+
 
   removeRecord = e => {
     console.log(e.target);
@@ -63,6 +100,7 @@ class General extends Component {
     const PassTable = ["Title", "type", "password", "url",  "date",""];
     const generalList = "general-list";
     const generalHead = "General Passwords";
+    // console.log(editRecord);
     let{ user } = this.props.auth;
     return (
         <div className="dashboard container v-align">
@@ -91,13 +129,13 @@ class General extends Component {
                         const{name, title, type, password, url, date} = record;
                         return (
                             <tr key={name+ '-'+index}>
-                              <td>{title}</td>
+                              <td id="passName">{title}</td>
                               <td>{type}</td>
                               <td><span>{password}</span></td>
                               <td>{url}</td>
                               <td>{date}</td>
                               <td>
-                                    <span onClick={this.editRecord}>
+                                    <span onClick={this.editRecords}>
                                       <i className="fas fa-edit"></i>
                                     </span>
                                 <span onClick={this.removeRecord}>
@@ -128,7 +166,10 @@ class General extends Component {
                   closePopup={this.onShowPopup.bind(this)}
                   user={ user }
                   updateLogin={this.getPassword.bind(this)}
+                  edit = {this.state.editMode}
                   passType = { this.state.type }
+                  editRecord = { this.state.editRecord }
+
               />
               : null
           }
@@ -139,6 +180,7 @@ class General extends Component {
 General.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getGeneralUserPassword: PropTypes.func.isRequired,
+  // getSingleUserPassword: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -147,5 +189,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { logoutUser, getGeneralUserPassword }
+    { logoutUser, getGeneralUserPassword, getSingleUserPassword }
 )(General);
