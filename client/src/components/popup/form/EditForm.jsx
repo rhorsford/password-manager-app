@@ -1,8 +1,9 @@
 import React, {Component} from "react";
+import {withRouter} from "react-router-dom";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import classnames from "classnames";
-import validateRecordInput from "../../../../../validation/updateUserPassword";
-import axios from "axios";
-import {GET_ERRORS} from "../../../actions/types";
+import validateUserDetailsInput from "../../../../../validation/userPassword";
 
 
 class editForm extends Component {
@@ -10,12 +11,12 @@ class editForm extends Component {
     super(props);
     this.state = {
       editName: "",
-      editTitle: "",
+      title: "",
       editType: "",
-      editPassword: "",
-      editConfirm_password: "",
-      editUrl: "",
-      editComments: "",
+      password: "",
+      confirm_password: "",
+      url: "",
+      comments: "",
       edit: props.edit,
       editRecord: [],
       updateRecord: [],
@@ -45,14 +46,15 @@ class editForm extends Component {
 
   showEditDetails = () => {
     let _this = this;
-     this.props.editRecord.map(record =>{
-      const{name, title, type, password, confirm_password, url, comments} = record;
+    this.props.editRecord.map(record => {
+      const {name, title, type, password, confirm_password, url, comments} = record;
 
-      _this.setState({ editTitle: title,
-          editPassword: password,
-          editConfirm_password: confirm_password,
-          editUrl: url,
-          editComments: comments
+      _this.setState({
+        title: title,
+        password: password,
+        confirm_password: confirm_password,
+        url: url,
+        comments: comments
       });
 
     });
@@ -63,58 +65,29 @@ class editForm extends Component {
   onSubmit = (e) => {
 
     e.preventDefault();
-      const updateRecord = {
-        name: this.props.user,
-        title: this.state.editTitle,
-        type: this.props.passType,
-        password: this.state.editPassword,
-        confirm_password: this.state.editConfirm_password,
-        url: this.state.editUrl,
-        comments: this.state.editComments,
-      }
+    const updateRecord = {
+      name: this.props.user,
+      title: this.state.title,
+      type: this.props.passType,
+      password: this.state.password,
+      confirm_password: this.state.confirm_password,
+      url: this.state.url,
+      comments: this.state.comments,
+    };
 
-      console.log(updateRecord);
+    console.log(this.state.password);
 
+    console.log(updateRecord);
+
+    let errors = validateUserDetailsInput(updateRecord).errors;
+    validateUserDetailsInput(updateRecord);
+    if (validateUserDetailsInput(updateRecord).isValid === false) {
+      this.setState({errors: errors})
+    } else {
       this.props.handleStateChange(e, updateRecord);
       this.props.onSubmit(e);
-  }
-  //   let titleEndpoint = this.state.editTitle;
-  //
-  //   const newRecord = {
-  //     name: this.props.user,
-  //     title: this.state.editTitle,
-  //     type: this.props.passType,
-  //     password: this.state.editPassword,
-  //     confirm_password: this.state.editConfirm_password,
-  //     url: this.state.editUrl,
-  //     comments: this.state.editComments,
-  //   };
-  //   console.log(newRecord);
-  //
-  //   let errors = validateRecordInput(newRecord).errors;
-  //   validateRecordInput(newRecord);
-  //
-  //   if (validateRecordInput(newRecord).isValid === false) {
-  //     this.setState({errors: errors})
-  //   } else {
-  //     axios
-  //         .put("/api/records/update/" + titleEndpoint +'/' + this.props.user, newRecord)
-  //         .then((response) => {
-  //           console.log(response);
-  //           // this.props.closePopup(e);
-  //           // this.props.updateLogin();
-  //         }, (error) => {
-  //           console.log(error);
-  //           return {
-  //             type: GET_ERRORS,
-  //             payload: error.response.data
-  //           };
-  //         });
-  //   }
-  // };
-
-
-
+    }
+  };
 
   render() {
 
@@ -125,32 +98,32 @@ class editForm extends Component {
           <div className="input-field">
             <label htmlFor="title">Title</label>
             <span className="red-text">
-                  {errors.editTitle}
+                  {errors.title}
                   </span>
             <input
-                onChange={this.props.change}
-                value={this.state.editTitle}
-                error={errors.editTitle}
-                id="editTitle"
+                onChange={this.onUpdate}
+                value={this.state.title}
+                error={errors.title}
+                id="title"
                 type="text"
                 className={classnames("", {
-                  invalid: errors.editTitle
+                  invalid: errors.title
                 })}
             />
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
             <span className="red-text">
-                  {errors.editPassword}
+                  {errors.password}
                   </span>
             <input
                 onChange={this.onUpdate}
-                value={this.state.editPassword}
-                error={errors.editPassword}
-                id="editPassword"
+                value={this.state.password}
+                error={errors.password}
+                id="password"
                 type="password"
                 className={classnames("", {
-                  invalid: errors.editPassword
+                  invalid: errors.password
                 })}
             />
             <i className="fas fa-eye" onClick={this.props.passwordShow}></i>
@@ -159,16 +132,16 @@ class editForm extends Component {
           <div className="input-field">
             <label htmlFor="confirm_password">Confirm Password</label>
             <span className="red-text">
-                  {errors.editConfirm_password}
+                  {errors.confirm_password}
                   </span>
             <input
                 onChange={this.onUpdate}
-                value={this.state.editConfirm_password}
-                error={errors.editConfirm_password}
-                id="editConfirm_password"
+                value={this.state.confirm_password}
+                error={errors.confirm_password}
+                id="confirm_password"
                 type="password"
                 className={classnames("", {
-                  invalid: errors.editConfirm_password
+                  invalid: errors.confirm_password
                 })}
             />
             <i className="fas fa-eye" onClick={this.props.passwordShow}></i>
@@ -179,8 +152,8 @@ class editForm extends Component {
 
             <input
                 onChange={this.onUpdate}
-                value={this.state.editUrl}
-                id="editUrl"
+                value={this.state.url}
+                id="url"
                 type="text"
             />
           </div>
@@ -189,8 +162,8 @@ class editForm extends Component {
             <label htmlFor="comments">Comments</label>
             <textarea
                 onChange={this.onUpdate}
-                value={this.state.editComments}
-                id="editComments"
+                value={this.state.comments}
+                id="comments"
                 rows="4"
                 cols="50"
             >
@@ -212,5 +185,15 @@ class editForm extends Component {
   }
 }
 
-export default editForm;
+editForm.propTypes = {
+  validateUserDetailsInput: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+export default connect(
+    mapStateToProps,
+    {validateUserDetailsInput}
+)(withRouter(editForm));
 

@@ -9,7 +9,6 @@ import classnames from "classnames";
 import {userPassword, validChecker} from "../../actions/userPasswords";
 
 import validateRecordInput from "../../../../validation/userPassword";
-import validateUpdatedRecordInput from "../../../../validation/updateUserPassword";
 import {logoutUser} from "../../actions/authActions";
 import axios from "axios";
 import {GET_ERRORS} from "../../actions/types";
@@ -27,13 +26,6 @@ class Popup extends Component {
       confirm_password: "",
       url: "",
       comments: "",
-      editName: "",
-      editTitle: "",
-      editType: "",
-      editPassword: "",
-      editConfirm_password: "",
-      editUrl: "",
-      editComments: "",
       edit: props.edit,
       editRecord: [],
       updateRecord: [],
@@ -56,6 +48,7 @@ class Popup extends Component {
   handleStateChange(e, value){
     e.preventDefault();
     let updateRecord = this.state.updateRecord;
+    updateRecord.length = 0;
     updateRecord.push(value);
     this.setState({ updateRecord : updateRecord })
   }
@@ -64,8 +57,6 @@ class Popup extends Component {
     // If logged in and user navigates to Register page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
     }
-
-    // this.setState({editRecord: this.props.editRecord});
 
   }
 
@@ -137,38 +128,31 @@ class Popup extends Component {
 
   existingRecordSubmit = (passEndpoint, e) => {
     console.log("fired");
-    // const {editRecord} = this.setState;
-    // const existingRecord = {
-    //   name: this.props.user.name,
-    //   title: this.state.editTitle,
-    //   type: this.props.passType,
-    //   password: this.state.editPassword,
-    //   confirm_password: this.state.editConfirm_password,
-    //   url: this.state.editUrl,
-    //   comments: this.state.editComments,
-    // };
+    const {updateRecord} = this.state;
 
-    console.log(this.state.updateRecord);
-    // let errors = validateUpdatedRecordInput(existingRecord).errors;
-    // validateUpdatedRecordInput(existingRecord);
-    //
-    // if (validateUpdatedRecordInput(existingRecord).isValid === false) {
+    console.log(updateRecord);
+    console.log(updateRecord[0]);
+    console.log(updateRecord[0].title);
+    // let errors = validateUpdatedRecordInput(updateRecord).errors;
+    // validateUpdatedRecordInput(updateRecord);
+    // //
+    // if (validateUpdatedRecordInput(updateRecord).isValid === false) {
     //   this.setState({errors: errors})
     // } else {
-    //   axios
-    //       .put("/api/records/" + passEndpoint, existingRecord)
-    //       .then((response) => {
-    //         console.log(response);
-    //         this.props.closePopup(e);
-    //         this.props.updateLogin();
-    //       }, (error) => {
-    //         console.log(error);
-    //         return {
-    //           type: GET_ERRORS,
-    //           payload: error.response.data
-    //         };
-    //       });
-    // }
+      axios
+          .put("/api/records/update/" + updateRecord[0].title + "/" + this.props.user.name + "/" + passEndpoint, updateRecord[0])
+          .then((response) => {
+            console.log(response);
+            this.props.closePopup(e);
+            this.props.updateLogin();
+          }, (error) => {
+            console.log(error);
+            return {
+              type: GET_ERRORS,
+              payload: error.response.data
+            };
+          });
+
   };
 
 
@@ -228,7 +212,6 @@ class Popup extends Component {
 
 Popup.propTypes = {
   validateRecordInput: PropTypes.func.isRequired,
-  validateUpdatedRecordInput: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -238,6 +221,6 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    {validateRecordInput, validateUpdatedRecordInput}
+    {validateRecordInput}
 )(withRouter(Popup));
 

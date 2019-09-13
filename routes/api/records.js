@@ -96,7 +96,7 @@ router.get('/:title/:name', (req, res) => {
   editPassMethod(req, res)
 });
 
-router.put('/update/:title/:name', (req, res) => {
+router.put('/update/:title/:name/:general', (req, res) => {
   editPassMethod(req, res)
 });
 
