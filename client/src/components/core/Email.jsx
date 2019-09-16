@@ -13,6 +13,7 @@ class Email extends Component {
   constructor(props){
     super(props);
     this.state = { showPopup: false,
+      id: "",
       name: "",
       title: "",
       type: "email",

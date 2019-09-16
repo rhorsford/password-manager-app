@@ -5,6 +5,9 @@ const Schema = mongoose.Schema;
 
 
 const RecordSchema = new Schema({
+  id: {
+    type: String
+  },
   name: {
     type: String,
     required: true

@@ -13,6 +13,7 @@ class General extends Component {
   constructor(props){
     super(props);
     this.state = { showPopup: false,
+      id: "",
       name: "",
       title: "",
       type: "general",
@@ -84,7 +85,7 @@ class General extends Component {
         });
 
     this.setState({editMode: true});
-    this.setState({editReecords: this.props.editRecord});
+    // this.setState({editRecords: this.props.editRecord});
     this.onShowPopup(e)
 
   };
@@ -126,7 +127,7 @@ class General extends Component {
                   {!isLoading ? (
                       records.map(record => {
                         ++ index;
-                        const{name, title, type, password, url, date} = record;
+                        const{id, name, title, type, password, url, date} = record;
                         return (
                             <tr key={name+ '-'+index}>
                               <td id="passName">{title}</td>
@@ -142,6 +143,7 @@ class General extends Component {
                                       <i className="fas fa-trash"></i>
                                     </span>
                               </td>
+                              <td style={{display: 'none'}}>{id}</td>
                             </tr>
                         );
                       })

@@ -10,6 +10,7 @@ class editForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       editName: "",
       title: "",
       editType: "",
@@ -47,9 +48,10 @@ class editForm extends Component {
   showEditDetails = () => {
     let _this = this;
     this.props.editRecord.map(record => {
-      const {name, title, type, password, confirm_password, url, comments} = record;
+      const {id, name, title, type, password, confirm_password, url, comments} = record;
 
       _this.setState({
+        id: id,
         title: title,
         password: password,
         confirm_password: confirm_password,
@@ -66,6 +68,7 @@ class editForm extends Component {
 
     e.preventDefault();
     const updateRecord = {
+      id: this.state.id,
       name: this.props.user,
       title: this.state.title,
       type: this.props.passType,

@@ -17,8 +17,9 @@ import {GET_ERRORS} from "../../actions/types";
 class Popup extends Component {
   constructor(props) {
     super(props);
-    this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this);
     this.state = {
+      id:"",
       name: "",
       title: "",
       type: "",
@@ -93,8 +94,21 @@ class Popup extends Component {
     }
   };
 
+  randomstring =(L) => {
+    var s = '';
+    var randomchar = function() {
+      var n = Math.floor(Math.random() * 62);
+      if (n < 10) return n; //1-10
+      if (n < 36) return String.fromCharCode(n + 55); //A-Z
+      return String.fromCharCode(n + 61); //a-z
+    };
+    while (s.length < L) s += randomchar();
+    return s;
+  };
+
   newRecordSubmit = (passEndpoint, e) => {
     const newRecord = {
+      id: this.randomstring(5),
       name: this.props.user.name,
       title: this.state.title,
       type: this.props.passType,
@@ -103,6 +117,8 @@ class Popup extends Component {
       url: this.state.url,
       comments: this.state.comments,
     };
+
+    console.log(newRecord);
 
     let errors = validateRecordInput(newRecord).errors;
     validateRecordInput(newRecord);
@@ -126,7 +142,7 @@ class Popup extends Component {
     }
   };
 
-  existingRecordSubmit = (passEndpoint, e) => {
+  existingRecordSubmit = (e) => {
     console.log("fired");
     const {updateRecord} = this.state;
 
@@ -140,7 +156,8 @@ class Popup extends Component {
     //   this.setState({errors: errors})
     // } else {
       axios
-          .put("/api/records/update/" + updateRecord[0].title + "/" + this.props.user.name + "/" + passEndpoint, updateRecord[0])
+          // .post("/api/records/"+passEndpoint+ "/" + updateRecord[0].title, updateRecord[0])
+          .put("/api/records/update/" + updateRecord[0].id, updateRecord[0])
           .then((response) => {
             console.log(response);
             this.props.closePopup(e);
@@ -162,7 +179,7 @@ class Popup extends Component {
     e.preventDefault();
     let passEndpoint = this.props.passType;
 
-    {this.state.editRecord && this.state.editRecord.length ? this.existingRecordSubmit(passEndpoint, e) : this.newRecordSubmit(passEndpoint, e);}
+    {this.state.editRecord && this.state.editRecord.length ? this.existingRecordSubmit(e) : this.newRecordSubmit(passEndpoint, e);}
 
 
   };

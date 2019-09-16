@@ -20,6 +20,7 @@ postPasswords = (req, res) => {
   } else {
     const valid = isValid;
     const newRecord = new Record({
+      id: req.body.id,
       name: req.body.name,
       title: req.body.title,
       type: req.body.type,
@@ -64,14 +65,33 @@ getPassMethod = (req, res) => {
 };
 
 editPassMethod = (req, res) => {
-  return Record.find({name: req.params.name, title: req.params.title}).then(function(fetchRecord) {
-    res.json({data: fetchRecord })
+  return Record.find({name: req.params.name, title: req.params.title}).then(function(record) {
+    res.json({data: record })
   })
       .catch(function (error) {
         // handle error
         console.log(error);
       })
 };
+
+
+router.post('/updateData', (req, res) => {
+  const { id, update } = req.body;
+  Data.findByIdAndUpdate(id, update, (err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
+updatePassMethod = (req, res) => {
+  const recordToUpdate = req.params.id;
+  Record.update({id: recordToUpdate}, req.body, function (err, result){
+    res.send(
+        (err === null) ? {msg: ''} : {msg: err}
+    );
+  });
+};
+
 
 //Post requests
 router.post('/email', (req, res) => {
@@ -96,10 +116,12 @@ router.get('/:title/:name', (req, res) => {
   editPassMethod(req, res)
 });
 
-router.put('/update/:title/:name/:general', (req, res) => {
-  editPassMethod(req, res)
+router.post('/general/:title', (req, res) => {
+  getPassMethod(req, res)
 });
-
+router.put('/update/:id', (req, res) => {
+  updatePassMethod(req, res)
+});
 
 
 module.exports = router;
