@@ -74,15 +74,6 @@ editPassMethod = (req, res) => {
       })
 };
 
-
-router.post('/updateData', (req, res) => {
-  const { id, update } = req.body;
-  Data.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
-
 updatePassMethod = (req, res) => {
   const recordToUpdate = req.params.id;
   Record.update({id: recordToUpdate}, req.body, function (err, result){
@@ -92,6 +83,14 @@ updatePassMethod = (req, res) => {
   });
 };
 
+removePassMethod = (req, res) => {
+  const recordToDelete = req.params.id;
+  Record.deleteOne({id: recordToDelete},function (err, result){
+    res.send(
+        (err === null) ? {msg: ''} : {msg: err}
+    );
+  });
+};
 
 //Post requests
 router.post('/email', (req, res) => {
@@ -122,6 +121,11 @@ router.post('/general/:title', (req, res) => {
 router.put('/update/:id', (req, res) => {
   updatePassMethod(req, res)
 });
+
+router.delete('/delete/:id', (req, res) => {
+  removePassMethod(req, res)
+});
+
 
 
 module.exports = router;

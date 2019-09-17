@@ -6,13 +6,15 @@ import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
+import axios from "axios";
 import {getGeneralUserPassword, getSingleUserPassword} from "../../actions/userPasswords"
 
 class General extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = { showPopup: false,
+    this.state = {
+      showPopup: false,
       id: "",
       name: "",
       title: "",
@@ -24,8 +26,8 @@ class General extends Component {
       date: "",
       errors: {},
       isLoading: true,
-      records:[],
-      editRecord:[],
+      records: [],
+      editRecord: [],
       valid: false,
       editMode: false
     };
@@ -37,13 +39,13 @@ class General extends Component {
     this.getPassword();
   };
 
-  getPassword =()=> {
-    const { user } = this.props.auth;
-    fetch('/api/records/general/' + user.name +'/'+ this.state.type)
+  getPassword = () => {
+    const {user} = this.props.auth;
+    fetch('/api/records/general/' + user.name + '/' + this.state.type)
         .then((data) => data.json())
-        .then((res) => this.setState({ records: res.data, isLoading: false }))
+        .then((res) => this.setState({records: res.data, isLoading: false}))
         .catch(error => {
-            console.log(error.response)
+          console.log(error.response)
         });
 
   };
@@ -58,28 +60,28 @@ class General extends Component {
   };
 
   getClosest = (elem, selector) => {
-    for ( ; elem && elem !== document; elem = elem.parentNode ) {
-      if ( elem.matches( selector ) ) return elem;
+    for (; elem && elem !== document; elem = elem.parentNode) {
+      if (elem.matches(selector)) return elem;
     }
     return null;
   };
 
 
   editRecords = e => {
-    const { user } = this.props.auth;
+    const {user} = this.props.auth;
     console.log(e.target);
-   const parent = this.getClosest(e.target, "tr");
-   const sibling = parent.children;
+    const parent = this.getClosest(e.target, "tr");
+    const sibling = parent.children;
 
 
-   console.log(sibling);
+    console.log(sibling);
     console.log(sibling[0]);
     console.log(sibling[0].innerHTML);
     const searchStr = sibling[0].innerHTML;
 
-    fetch('/api/records/' + searchStr +'/'+ user.name)
+    fetch('/api/records/' + searchStr + '/' + user.name)
         .then((data) => data.json())
-        .then((res) => this.setState({ editRecord: res.data}))
+        .then((res) => this.setState({editRecord: res.data}))
         .catch(error => {
           console.log(error.response)
         });
@@ -91,33 +93,51 @@ class General extends Component {
   };
 
 
+  // fakefunctioon(){
+  //   axios.delete('http://localhost:3001/api/deleteData', {
+  //     data: {
+  //       id: objIdToDelete,
+  //     },
+  //   });
+  // }
+
+
   removeRecord = e => {
     console.log(e.target);
+
+    const parent = this.getClosest(e.target, "tr");
+    const parentId = parent.getAttribute("id");
+
+    console.log(parentId);
+    axios.delete("/api/records/delete/" + parentId).then(response => {
+      console.log(response)
+    });
   };
+
   render() {
     let index = 0;
 
-    const { isLoading, records } = this.state;
-    const PassTable = ["Title", "type", "password", "url",  "date",""];
+    const {isLoading, records} = this.state;
+    const PassTable = ["Title", "type", "password", "url", "date", ""];
     const generalList = "general-list";
     const generalHead = "General Passwords";
     // console.log(editRecord);
-    let{ user } = this.props.auth;
+    let {user} = this.props.auth;
     return (
         <div className="dashboard container v-align">
           <div className="row panel set-height">
-            <SidePanel list={generalList} />
+            <SidePanel list={generalList}/>
 
             <div className="col-9">
-              <UserPanel />
-              <PageHeading heading={generalHead} />
+              <UserPanel/>
+              <PageHeading heading={generalHead}/>
               <div className="password-container">
                 <table>
                   <thead>
                   <tr>
                     {PassTable.map(i => {
                       return (
-                          <th key={'table-head-'+i}>{i}</th>
+                          <th key={'table-head-' + i}>{i}</th>
 
                       )
                     })}
@@ -126,10 +146,10 @@ class General extends Component {
                   <tbody>
                   {!isLoading ? (
                       records.map(record => {
-                        ++ index;
-                        const{id, name, title, type, password, url, date} = record;
+                        ++index;
+                        const {id, name, title, type, password, url, date} = record;
                         return (
-                            <tr key={name+ '-'+index}>
+                            <tr id={id} key={name + '-' + index}>
                               <td id="passName">{title}</td>
                               <td>{type}</td>
                               <td><span>{password}</span></td>
@@ -147,7 +167,7 @@ class General extends Component {
                             </tr>
                         );
                       })
-                  ):(
+                  ) : (
                       <tr>
                         <td>Loading...</td>
                       </tr>
@@ -157,7 +177,9 @@ class General extends Component {
               </div>
               <div className="row">
                 <div className="col-12 details">
-                  <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fas fa-plus"></i> Add new Login</button>
+                  <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fas fa-plus"></i> Add new
+                    Login
+                  </button>
                 </div>
               </div>
             </div>
@@ -166,11 +188,11 @@ class General extends Component {
               <Popup
                   text='Click "Close Button" to hide popup'
                   closePopup={this.onShowPopup.bind(this)}
-                  user={ user }
+                  user={user}
                   updateLogin={this.getPassword.bind(this)}
-                  edit = {this.state.editMode}
-                  passType = { this.state.type }
-                  editRecord = { this.state.editRecord }
+                  edit={this.state.editMode}
+                  passType={this.state.type}
+                  editRecord={this.state.editRecord}
 
               />
               : null
@@ -179,6 +201,7 @@ class General extends Component {
     );
   }
 }
+
 General.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getGeneralUserPassword: PropTypes.func.isRequired,
@@ -191,5 +214,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { logoutUser, getGeneralUserPassword, getSingleUserPassword }
+    {logoutUser, getGeneralUserPassword, getSingleUserPassword}
 )(General);
