@@ -8,18 +8,6 @@ import {
   USER_LOADING
 } from "./types";
 //Post User details
-const valid = true;
-
-export const validChecker = (val) => {
-
-  console.log(val);
-
-  const newVar = val;
-
-  return newVar;
-
-};
-
 // export const userPassword = (newRecord, history) => dispatch => {
 //   const that = this;
 // axios
