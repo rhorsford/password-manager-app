@@ -6,6 +6,7 @@ import UserPanel from "../dashboard/UserPanel";
 import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
+import {editRecords, findRow, getPasswords, removeRecords} from "../stateless/Common";
 import {getEmailUserPassword} from "../../actions/userPasswords"
 
 class Email extends Component {
@@ -25,22 +26,32 @@ class Email extends Component {
       errors: {},
       isLoading: true,
       records:[],
-      valid: false
+      editRecord: [],
+      valid: false,
+      editMode: false
     };
+
+    this.onShowPopup = this.onShowPopup.bind(this);
   }
 
   componentDidMount() {
     this.getPassword();
   };
 
-  getPassword =()=> {
-    const { user } = this.props.auth;
-    fetch('/api/records/email/' + user.name + '/' + this.state.type)
-        .then((data) => data.json())
-        .then((res) => this.setState({ records: res.data, isLoading: false }));
+  getPassword = () => {
+    const {user} = this.props.auth;
+    getPasswords(this.state.type, user.name).then(data =>{
+      this.setState({records: data, isLoading: false})
+    });
+  };
 
-};
-
+  onEditRecord = (e, user) => {
+    editRecords(e, user, findRow(e)).then(data => {
+      this.setState({editRecord: data})
+    });
+    this.onShowPopup(e);
+    this.setState({editMode: true});
+  };
 
   onShowPopup = e => {
     e.preventDefault();
@@ -50,13 +61,11 @@ class Email extends Component {
     document.body.classList.toggle("popup-bg");
   };
 
-  editRecord = e => {
-    console.log(e.target);
+  removeRecord = e => {
+    removeRecords(e);
+    this.getPassword();
   };
 
-  removeRecord = e => {
-    console.log(e.target);
-  };
   render() {
     let index = 0;
 
@@ -89,24 +98,25 @@ class Email extends Component {
                   {!isLoading ? (
                       records.map(record => {
                         ++ index;
-                            const{name, title, type, password, url, date} = record;
-                            return (
-                                <tr key={name+ '-'+index}>
-                                  <td>{title}</td>
-                                  <td>{type}</td>
-                                  <td><span>{password}</span></td>
-                                  <td>{url}</td>
-                                  <td>{date}</td>
-                                  <td>
-                                    <span onClick={this.editRecord}>
+                            const{id, name, title, type, password, url, date} = record;
+                        return (
+                            <tr id={id} key={name + '-' + index}>
+                              <td id="passName">{title}</td>
+                              <td>{type}</td>
+                              <td><span>{password}</span></td>
+                              <td>{url}</td>
+                              <td>{date}</td>
+                              <td>
+                                    <span onClick={(e) => {this.onEditRecord(e, user.name)}}>
                                       <i className="fas fa-edit"></i>
                                     </span>
-                                    <span onClick={this.removeRecord}>
+                                <span onClick={this.removeRecord}>
                                       <i className="fas fa-trash"></i>
                                     </span>
-                                  </td>
-                                </tr>
-                            );
+                              </td>
+                              <td style={{display: 'none'}}>{id}</td>
+                            </tr>
+                        );
                           })
                   ):(
                       <tr>
@@ -129,7 +139,9 @@ class Email extends Component {
               closePopup={this.onShowPopup.bind(this)}
               user={ user }
               updateLogin={this.getPassword.bind(this)}
-              passType = { this.state.type }
+              edit={this.state.editMode}
+              passType={this.state.type}
+              editRecord={this.state.editRecord}
           />
           : null
       }

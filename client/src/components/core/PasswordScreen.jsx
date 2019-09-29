@@ -7,18 +7,19 @@ import PageHeading from "../layout/PageHeading";
 import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
 import {editRecords, findRow, getPasswords, removeRecords} from "../stateless/Common";
-import {getGeneralUserPassword} from "../../actions/userPasswords";
+import {getEmailUserPassword} from "../../actions/userPasswords"
 
-class General extends Component {
+class PasswordScreen extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      showPopup: false,
+
+    console.log(this.props);
+    this.state = { showPopup: false,
       id: "",
       name: "",
       title: "",
-      type: "general",
+      type: this.props.location.pathname,
       password: "",
       confirm_password: "",
       url: "",
@@ -26,7 +27,7 @@ class General extends Component {
       date: "",
       errors: {},
       isLoading: true,
-      records: [],
+      records:[],
       editRecord: [],
       valid: false,
       editMode: false
@@ -37,12 +38,16 @@ class General extends Component {
 
   componentDidMount() {
     this.getPassword();
-  };
 
+    if (this.state.type !== undefined) {
+      const type = this.state.type.replace('/', '');
+      this.setState({type: type})
+    }
+  };
 
   getPassword = () => {
     const {user} = this.props.auth;
-      getPasswords(this.state.type, user.name).then(data =>{
+    getPasswords(this.state.type, user.name).then(data =>{
       this.setState({records: data, isLoading: false})
     });
   };
@@ -51,10 +56,9 @@ class General extends Component {
     editRecords(e, user, findRow(e)).then(data => {
       this.setState({editRecord: data})
     });
-      this.onShowPopup(e);
-      this.setState({editMode: true});
+    this.onShowPopup(e);
+    this.setState({editMode: true});
   };
-
 
   onShowPopup = e => {
     e.preventDefault();
@@ -72,36 +76,35 @@ class General extends Component {
   render() {
     let index = 0;
 
-    const {isLoading, records} = this.state;
-    const PassTable = ["Title", "type", "password", "url", "date", ""];
-    const generalList = "general-list";
-    const generalHead = "General Passwords";
-    let {user} = this.props.auth;
+    const { isLoading, records,type } = this.state;
+    const PassTable = ["Title", "type", "password", "url",  "date",""];
+    const emailList = "email-list";
+    let{ user } = this.props.auth;
     return (
-        <div className="dashboard container v-align">
-          <div className="row panel set-height">
-            <SidePanel list={generalList}/>
+    <div className="dashboard container v-align">
+      <div className="row panel set-height">
+        <SidePanel list={emailList} />
 
-            <div className="col-9">
-              <UserPanel/>
-              <PageHeading heading={generalHead}/>
-              <div className="password-container">
-                <table>
-                  <thead>
-                  <tr>
-                    {PassTable.map(i => {
-                      return (
-                          <th key={'table-head-' + i}>{i}</th>
+        <div className="col-9">
+          <UserPanel />
+          <PageHeading type ={type}/>
+          <div className="password-container">
+            <table>
+              <thead>
+                <tr>
+                  {PassTable.map(i => {
+                    return (
+                    <th key={'table-head-'+i}>{i}</th>
 
-                      )
-                    })}
-                  </tr>
-                  </thead>
-                  <tbody>
+                    )
+                  })}
+                </tr>
+              </thead>
+              <tbody>
                   {!isLoading ? (
                       records.map(record => {
-                        ++index;
-                        const {id, name, title, type, password, url, date} = record;
+                        ++ index;
+                            const{id, name, title, type, password, url, date} = record;
                         return (
                             <tr id={id} key={name + '-' + index}>
                               <td id="passName">{title}</td>
@@ -120,45 +123,41 @@ class General extends Component {
                               <td style={{display: 'none'}}>{id}</td>
                             </tr>
                         );
-                      })
-                  ) : (
+                          })
+                  ):(
                       <tr>
-                        <td>Loading...</td>
+                      <td>Loading...</td>
                       </tr>
                   )}
-                  </tbody>
-                </table>
-              </div>
-              <div className="row">
-                <div className="col-12 details">
-                  <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fas fa-plus"></i> Add new
-                    Login
-                  </button>
-                </div>
-              </div>
+              </tbody>
+            </table>
+          </div>
+          <div className="row">
+            <div className="col-12 details">
+              <button className="btn btn-blue" onClick={this.onShowPopup}><i className="fas fa-plus"></i> Add new Login</button>
             </div>
           </div>
-          {this.state.showPopup ?
-              <Popup
-                  text='Click "Close Button" to hide popup'
-                  closePopup={this.onShowPopup.bind(this)}
-                  user={user}
-                  updateLogin={this.getPassword.bind(this)}
-                  edit={this.state.editMode}
-                  passType={this.state.type}
-                  editRecord={this.state.editRecord}
-
-              />
-              : null
-          }
         </div>
-    );
+      </div>
+      {this.state.showPopup ?
+          <Popup
+              text='Click "Close Button" to hide popup'
+              closePopup={this.onShowPopup.bind(this)}
+              user={ user }
+              updateLogin={this.getPassword.bind(this)}
+              edit={this.state.editMode}
+              passType={this.state.type}
+              editRecord={this.state.editRecord}
+          />
+          : null
+      }
+    </div>
+  );
   }
 }
-
-General.propTypes = {
+PasswordScreen.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  getGeneralUserPassword: PropTypes.func.isRequired,
+  getEmailUserPassword: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -167,5 +166,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {logoutUser, getGeneralUserPassword}
-)(General);
+    { logoutUser, getEmailUserPassword }
+)(PasswordScreen);

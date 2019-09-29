@@ -20,11 +20,11 @@ class SidePanel extends Component {
         name: "General Password"
       },
       {
-        url: "/dashboard",
+        url: "/internet",
         name: "Internet Password"
       },
       {
-        url: "/dashboard",
+        url: "/home-banking",
         name: "Homebanking Password"
       },
       {

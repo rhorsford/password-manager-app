@@ -5,11 +5,8 @@ import {connect} from "react-redux";
 import PageHeading from "../layout/PageHeading";
 import EditForm from "./form/EditForm";
 import NewForm from "./form/NewForm";
-import classnames from "classnames";
-import {userPassword, validChecker} from "../../actions/userPasswords";
 
 import validateRecordInput from "../../../../validation/userPassword";
-import {logoutUser} from "../../actions/authActions";
 import axios from "axios";
 import {GET_ERRORS} from "../../actions/types";
 
@@ -19,7 +16,7 @@ class Popup extends Component {
     super(props);
     this.handleStateChange = this.handleStateChange.bind(this);
     this.state = {
-      id:"",
+      id: "",
       name: "",
       title: "",
       type: "",
@@ -46,12 +43,12 @@ class Popup extends Component {
 
   }
 
-  handleStateChange(e, value){
+  handleStateChange(e, value) {
     e.preventDefault();
     let updateRecord = this.state.updateRecord;
     updateRecord.length = 0;
     updateRecord.push(value);
-    this.setState({ updateRecord : updateRecord })
+    this.setState({updateRecord: updateRecord})
   }
 
   componentDidMount() {
@@ -94,9 +91,9 @@ class Popup extends Component {
     }
   };
 
-  randomstring =(L) => {
+  randomstring = (L) => {
     var s = '';
-    var randomchar = function() {
+    var randomchar = function () {
       var n = Math.floor(Math.random() * 62);
       if (n < 10) return n; //1-10
       if (n < 36) return String.fromCharCode(n + 55); //A-Z
@@ -149,26 +146,19 @@ class Popup extends Component {
     console.log(updateRecord);
     console.log(updateRecord[0]);
     console.log(updateRecord[0].title);
-    // let errors = validateUpdatedRecordInput(updateRecord).errors;
-    // validateUpdatedRecordInput(updateRecord);
-    // //
-    // if (validateUpdatedRecordInput(updateRecord).isValid === false) {
-    //   this.setState({errors: errors})
-    // } else {
-      axios
-          // .post("/api/records/"+passEndpoint+ "/" + updateRecord[0].title, updateRecord[0])
-          .put("/api/records/update/" + updateRecord[0].id, updateRecord[0])
-          .then((response) => {
-            console.log(response);
-            this.props.closePopup(e);
-            this.props.updateLogin();
-          }, (error) => {
-            console.log(error);
-            return {
-              type: GET_ERRORS,
-              payload: error.response.data
-            };
-          });
+    axios
+        .put("/api/records/update/" + updateRecord[0].id, updateRecord[0])
+        .then((response) => {
+          console.log(response);
+          this.props.closePopup(e);
+          this.props.updateLogin();
+        }, (error) => {
+          console.log(error);
+          return {
+            type: GET_ERRORS,
+            payload: error.response.data
+          };
+        });
 
   };
 
@@ -179,7 +169,9 @@ class Popup extends Component {
     e.preventDefault();
     let passEndpoint = this.props.passType;
 
-    {this.state.editRecord && this.state.editRecord.length ? this.existingRecordSubmit(e) : this.newRecordSubmit(passEndpoint, e);}
+    {
+      this.state.editRecord && this.state.editRecord.length ? this.existingRecordSubmit(e) : this.newRecordSubmit(passEndpoint, e);
+    }
 
 
   };
@@ -203,10 +195,10 @@ class Popup extends Component {
             <div className='col-12'>
               {editRecord && editRecord.length ?
                   <EditForm
-                      user ={this.props.user.name}
-                      passType ={this.props.passType}
+                      user={this.props.user.name}
+                      passType={this.props.passType}
                       change={this.onChange.bind(this)}
-                      handleStateChange = {this.handleStateChange}
+                      handleStateChange={this.handleStateChange}
                       onSubmit={this.onSubmit.bind(this)}
                       passwordShow={this.passwordShow.bind(this)}
                       errors={this.state.errors}

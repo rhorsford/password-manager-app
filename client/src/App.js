@@ -19,6 +19,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Email from "./components/core/Email";
 import General from "./components/core/General";
+import PasswordScreen from "./components/core/PasswordScreen";
 import Popup from "./components/popup/Popup";
 
 // Check for token to keep user logged in
@@ -41,6 +42,18 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "email",
+      general: "general",
+      internet: 'internet',
+      homebanking: "homebanking",
+      other: "other"
+    };
+  }
+
   render() {
     return (
         <Provider store={store}>
@@ -52,9 +65,10 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/email" component={Email} />
-              <PrivateRoute exact path="/general" component={General} />
-              {/*<PrivateRoute exact path="/email" component={Popup} />*/}
+              <PrivateRoute exact path="/email" component={PasswordScreen} key="email"  />
+              <PrivateRoute exact path="/general" component={PasswordScreen} key="general" />
+              <PrivateRoute exact path="/internet" component={PasswordScreen} key="internet" />
+              <PrivateRoute exact path="/home-banking" component={PasswordScreen} key="homebanking" />
             </Switch>
           </div>
           </Router>

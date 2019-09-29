@@ -55,8 +55,28 @@ postPasswords = (req, res) => {
 };
 
 getPassMethod = (req, res) => {
-  return Record.find({name: req.params.name, type: req.params.type}).then(function(record) {
-    res.json({data: record })
+  return Record.find({name: req.params.name, type: req.params.type}).then(function (record) {
+    res.json({data: record})
+  })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+};
+
+getCollectionCount = (req, res) => {
+  return Record.collection.count({type: req.params.type}).then(function (record) {
+    res.json({data: record})
+  })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+};
+
+getTotalCollectionCount = (req, res) => {
+  return Record.collection.count({name: req.params.name}).then(function (record) {
+    res.json({data: record})
   })
       .catch(function (error) {
         // handle error
@@ -65,8 +85,8 @@ getPassMethod = (req, res) => {
 };
 
 editPassMethod = (req, res) => {
-  return Record.find({name: req.params.name, title: req.params.title}).then(function(record) {
-    res.json({data: record })
+  return Record.find({name: req.params.name, id: req.params.id}).then(function (record) {
+    res.json({data: record})
   })
       .catch(function (error) {
         // handle error
@@ -76,7 +96,7 @@ editPassMethod = (req, res) => {
 
 updatePassMethod = (req, res) => {
   const recordToUpdate = req.params.id;
-  Record.update({id: recordToUpdate}, req.body, function (err, result){
+  Record.update({id: recordToUpdate}, req.body, function (err, result) {
     res.send(
         (err === null) ? {msg: ''} : {msg: err}
     );
@@ -85,7 +105,7 @@ updatePassMethod = (req, res) => {
 
 removePassMethod = (req, res) => {
   const recordToDelete = req.params.id;
-  Record.deleteOne({id: recordToDelete},function (err, result){
+  Record.deleteOne({id: recordToDelete}, function (err, result) {
     res.send(
         (err === null) ? {msg: ''} : {msg: err}
     );
@@ -101,7 +121,23 @@ router.post('/general', (req, res) => {
   postPasswords(req, res)
 });
 
+router.post('/internet', (req, res) => {
+  postPasswords(req, res)
+});
+
+router.post('/home-banking', (req, res) => {
+  postPasswords(req, res)
+});
+
 //Get requests
+
+router.get('/dashboard/:type', (req, res) => {
+  getCollectionCount(req, res)
+});
+
+router.get('/dashboard/total/:name', (req, res) => {
+  getTotalCollectionCount(req, res)
+});
 
 router.get('/email/:name/:type', (req, res) => {
   getPassMethod(req, res)
@@ -111,7 +147,15 @@ router.get('/general/:name/:type', (req, res) => {
   getPassMethod(req, res)
 });
 
-router.get('/:title/:name', (req, res) => {
+router.get('/internet/:name/:type', (req, res) => {
+  getPassMethod(req, res)
+});
+
+router.get('/home-banking/:name/:type', (req, res) => {
+  getPassMethod(req, res)
+});
+
+router.get('/:name/:id', (req, res) => {
   editPassMethod(req, res)
 });
 
@@ -125,7 +169,6 @@ router.put('/update/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
   removePassMethod(req, res)
 });
-
 
 
 module.exports = router;
