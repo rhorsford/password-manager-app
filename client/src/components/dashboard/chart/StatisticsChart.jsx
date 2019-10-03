@@ -6,14 +6,28 @@ class StatisticsChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: {},
-      series: [44, 55, 41, 17, 15],
-      labels: ['A', 'B', 'C', 'D', 'E']
+      options: {
+        labels: ['Email', 'General', 'Internet', 'Home', 'Other']
+      },
+      series: [0, 0, 0, 0, 0],
     };
   }
 
   componentDidMount() {
 
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.emailData !== this.props.emailData) {
+      let series = [...this.state.series];
+      series[0] = this.props.emailData;
+      series[1] = this.props.generalData;
+      series[2] = this.props.internetData;
+      series[3] = this.props.homebankingData;
+      series[4] = this.props.otherData;
+
+      this.setState({series});
+    }
   };
 
 

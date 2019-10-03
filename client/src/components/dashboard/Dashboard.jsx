@@ -26,6 +26,8 @@ class Dashboard extends Component {
         emailData: '',
         generalData: '',
         internetData: '',
+        homebankingData: '',
+        otherData: ''
       }
     }
   }
@@ -43,23 +45,48 @@ class Dashboard extends Component {
     var list = document.getElementById("stats");
     var items = list.querySelectorAll(".statistics");
     var s = new XMLSerializer();
-
+    var that = this;
 
     setTimeout(function() {
+
       items.forEach(function (item) {
-        dataArray.push(item.innerText);
+        if (item === "NaN") {
+          dataArray.push(0);
+        }else {
+          // dataArray.push(item.innerText);
+          dataArray.push(parseInt(item.innerText));
+        }
       });
-
-
 
     console.log(dataArray);
     const unsetTotal = dataArray[0];
     console.log(unsetTotal);
 
-    const total = 5;
-    const emailPass = 100/total*2;
-    console.log(emailPass)
+      const total = dataArray[0];
+      const emailPercent = 100/total * dataArray[1];
+      const generalPercent = 100/total * dataArray[2];
+      const internetPercent = 100/total * dataArray[3];
+      const homeBankingPercent = 100/total * dataArray[4];
+      const otherPercent = 100/total * dataArray[5];
+
+      that.setState(state => {
+        state.chart.totalData = total;
+        state.chart.emailData = emailPercent;
+        state.chart.generalData = generalPercent;
+        state.chart.internetData = internetPercent;
+        state.chart.homebankingData = homeBankingPercent;
+        state.chart.otherData = otherPercent;
+        return state
+      });
+
+      console.log(that.state.chart.emailData);
+
+
+    console.log(emailPercent);
     }, 250);
+
+
+
   };
 
 
@@ -91,7 +118,12 @@ class Dashboard extends Component {
                 <PasswordCounter type={this.state.type.internet}/>
                 <PasswordCounter type={this.state.type.homebanking}/>
                 <PasswordCounter type={this.state.type.other}/>
-               <StatisticsChart c/>
+               <StatisticsChart  emailData={this.state.chart.emailData}
+                                 generalData={this.state.chart.generalData}
+                                 internetData={this.state.chart.internetData}
+                                 homebankingData={this.state.chart.homebankingData}
+                                 otherData={this.state.chart.otherData}
+                />
 
               </div>
             </div>
