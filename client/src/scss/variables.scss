@@ -9,6 +9,22 @@ h1 {
 
 h2 {
   font-size: 1.5em;
+
+  &.underline {
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 20px;
+
+    &:after {
+      content: '';
+      position:absolute;
+      left: 0;
+      bottom: -8px;
+      width: 30px;
+      height: 2px;
+      background-color: #83bedf;
+    }
+  }
 }
 
 

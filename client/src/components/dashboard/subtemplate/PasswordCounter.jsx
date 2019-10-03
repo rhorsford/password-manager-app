@@ -9,24 +9,37 @@ class PasswordCounter extends Component {
     }
   }
 
+
+
   componentDidMount() {
     this.DashboardData();
+    // this.DashboardItems()
   };
 
   DashboardData = () => {
 
+    const that = this;
+    const that_ = this;
     if (this.props.type === "total") {
       const {user} = this.props.user;
       console.log(user.name);
       console.log(this.props.type)
       dashboardTotalNumbers(user.name).then(data => {
         this.setState({output: data});
+        // that.props.chartTotalCallback(this.state.output)
+
       });
     } else {
       dashboardNumbers(this.props.type).then(data => {
         this.setState({output: data});
+        // that_.props.chartCallback(this.state.output)
+
       });
     }
+  };
+
+  DashboardItems = () => {
+
   };
 
 

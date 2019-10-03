@@ -73,6 +73,14 @@
     }
   }
 
+  .col-6 {
+    margin-top: 1.5em;
+      &.metrics {
+        text-align: left;
+        padding: 1rem;
+      }
+  }
+
 // Nav Dropdown styles
 
   nav{

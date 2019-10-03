@@ -6,6 +6,18 @@ h1 {
 
 h2 {
   font-size: 1.5em; }
+  h2.underline {
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 20px; }
+    h2.underline:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 30px;
+      height: 2px;
+      background-color: #83bedf; }
 
 h3 {
   font-size: 1.25rem;
@@ -343,6 +355,11 @@ nav {
   .dashboard .col-4.metrics .statistics {
     font-weight: 600;
     font-size: 2em; }
+.dashboard .col-6 {
+  margin-top: 1.5em; }
+  .dashboard .col-6.metrics {
+    text-align: left;
+    padding: 1rem; }
 .dashboard nav.user-details {
   background-color: #fff;
   float: left; }

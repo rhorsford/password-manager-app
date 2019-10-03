@@ -6,6 +6,7 @@ import SidePanel from "../layout/SidePanel";
 import UserPanel from "./UserPanel";
 import PageHeading from "../layout/PageHeading";
 import PasswordCounter from "./subtemplate/PasswordCounter";
+import StatisticsChart from "./chart/StatisticsChart";
 
 class Dashboard extends Component {
 
@@ -19,9 +20,49 @@ class Dashboard extends Component {
         internet: "internet",
         homebanking: "homebanking",
         other: "other",
+      },
+      chart: {
+        totalData: '',
+        emailData: '',
+        generalData: '',
+        internetData: '',
       }
     }
   }
+
+  componentDidMount() {
+    this.onChartData();
+  }
+
+
+
+  onChartData = (e) => {
+    const dataArray = [];
+
+    var regex = /(<([^>]+)>)/ig;
+    var list = document.getElementById("stats");
+    var items = list.querySelectorAll(".statistics");
+    var s = new XMLSerializer();
+
+
+    setTimeout(function() {
+      items.forEach(function (item) {
+        dataArray.push(item.innerText);
+      });
+
+
+
+    console.log(dataArray);
+    const unsetTotal = dataArray[0];
+    console.log(unsetTotal);
+
+    const total = 5;
+    const emailPass = 100/total*2;
+    console.log(emailPass)
+    }, 250);
+  };
+
+
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -43,13 +84,15 @@ class Dashboard extends Component {
             <div className="col-9">
               <UserPanel/>
               <PageHeading heading={dashHead}/>
-              <div className="row m-0 p-4">
-                <PasswordCounter type={this.state.type.total} user={this.props.auth}/>
-                <PasswordCounter type={this.state.type.email}/>
+              <div id="stats" className="row m-0 p-4">
+                <PasswordCounter type={this.state.type.total} user={this.props.auth} key="total"/>
+                <PasswordCounter type={this.state.type.email} key="email"/>
                 <PasswordCounter type={this.state.type.general}/>
                 <PasswordCounter type={this.state.type.internet}/>
                 <PasswordCounter type={this.state.type.homebanking}/>
                 <PasswordCounter type={this.state.type.other}/>
+               <StatisticsChart c/>
+
               </div>
             </div>
           </div>
