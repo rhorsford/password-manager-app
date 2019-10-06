@@ -10,6 +10,8 @@ class PageHeading extends Component {
           <div className="col-12 heading">
             {(() => {
               switch(this.props.type) {
+                case 'dashboard':
+                  return <h2>Dashboard</h2>;
                 case 'email':
                   return <h2>Email Passwords</h2>;
                 case 'general':

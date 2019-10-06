@@ -4,31 +4,47 @@ import "./layout.scss";
 
 class SidePanel extends Component {
 
+  componentDidMount() {
+    this.onActive();
+  }
+
+  onActive = () => {
+    const activeLink = document.querySelector(".active");
+    let parent = activeLink.parentElement;
+    parent.classList.add("active");
+  };
+
   render() {
     let index = 0;
     const linkPath = [
       {
+        icon: "fas fa-home",
         url: "/dashboard",
         name: "Home"
       },
       {
+        icon: "fas fa-envelope",
         url: "/email",
         name: "Email Password"
       },
       {
+        icon: "fas fa-user-cog",
         url: "/general",
         name: "General Password"
       },
       {
+        icon: "fas fa-globe",
         url: "/internet",
         name: "Internet Password"
       },
       {
+        icon: "fas fa-money-check-alt",
         url: "/home-banking",
         name: "Homebanking Password"
       },
       {
-        url: "/dashboard",
+        icon: "fas fa-wallet",
+        url: "/other",
         name: "Other Password"
       }
     ];
@@ -38,10 +54,13 @@ class SidePanel extends Component {
           <h2>Control Panel</h2>
           <ul>
             {linkPath.map(link => {
-             ++ index;
+              ++index;
               return (
-                  <li key={this.props.list+'-'+index}>
-                    <NavLink to={link.url} activeClassName="active">
+                  <li key={this.props.list + '-' + index}>
+                    <div className="icon">
+                      <i className={link.icon}></i>
+                    </div>
+                    <NavLink to={link.url} activeClassName="active" onClick={e => this.onActive(e)}>
                       {link.name}
                     </NavLink>
                   </li>

@@ -258,7 +258,7 @@ nav {
   width: 100%; }
   nav .nav-wrapper {
     background-color: #353535; }
-    nav .nav-wrapper a {
+    nav .nav-wrapper li a {
       color: #fff; }
 
 .heading h2 {
@@ -328,16 +328,27 @@ nav {
     .dashboard .panel .col-3 h2, .dashboard .panel .col-3 p, .dashboard .panel .col-3 i, .dashboard .panel .col-3 a {
       color: #fff; }
     .dashboard .panel .col-3 ul {
+      padding-left: 17.5px;
+      padding-right: 17.5px;
       margin-top: 30px; }
       .dashboard .panel .col-3 ul li {
         text-decoration: none;
         list-style: none;
         text-align: left;
-        margin-bottom: 30px; }
+        padding: 15px 7.5px;
+        margin-bottom: 15px; }
         .dashboard .panel .col-3 ul li:last-child {
           margin-bottom: 0; }
+        .dashboard .panel .col-3 ul li.active {
+          background-color: #626c79; }
+        .dashboard .panel .col-3 ul li .icon {
+          width: 30px;
+          text-align: left;
+          float: left; }
         .dashboard .panel .col-3 ul li a {
           font-size: 1.2rem; }
+          .dashboard .panel .col-3 ul li a.active {
+            font-weight: 600; }
 .dashboard .metrics {
   background-color: #fff;
   -webkit-box-shadow: 2px 0px 9px 0px rgba(180, 180, 180, 0.16);
@@ -386,6 +397,9 @@ nav {
   .dashboard nav.user-details .dropdown:hover .dropdown-content {
     display: block; }
 
+.apexcharts-canvas {
+  margin: 0 auto; }
+
 .password-container {
   width: calc(100% - 2em);
   border: 1px solid #525a65;
@@ -432,7 +446,9 @@ nav {
   margin: 0 auto;
   background-color: #fff;
   z-index: 1;
-  width: 600px; }
+  width: 600px;
+  /* Webkit based browsers */
+  /* Gecko based browsers */ }
   .popup .row {
     width: auto; }
   .popup a.closebtn {
@@ -454,6 +470,36 @@ nav {
       transform: rotate(45deg); }
     .popup a.closebtn:after {
       transform: rotate(-45deg); }
+  .popup meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0 auto 1em;
+    width: 100%;
+    height: 1.5em;
+    /* Applicable only to Firefox */
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1); }
+  .popup meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1); }
+  .popup meter[value="1"]::-webkit-meter-optimum-value {
+    background: red; }
+  .popup meter[value="2"]::-webkit-meter-optimum-value {
+    background: yellow; }
+  .popup meter[value="3"]::-webkit-meter-optimum-value {
+    background: orange; }
+  .popup meter[value="4"]::-webkit-meter-optimum-value {
+    background: green; }
+  .popup meter[value="1"]::-moz-meter-bar {
+    background: red; }
+  .popup meter[value="2"]::-moz-meter-bar {
+    background: yellow; }
+  .popup meter[value="3"]::-moz-meter-bar {
+    background: orange; }
+  .popup meter[value="4"]::-moz-meter-bar {
+    background: green; }
 
 .App {
   text-align: center; }

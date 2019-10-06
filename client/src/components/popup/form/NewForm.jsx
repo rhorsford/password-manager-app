@@ -66,6 +66,11 @@ class NewForm extends Component {
                 })}
             />
             <i className="fas fa-eye" onClick={this.props.passwordShow}></i>
+
+          </div>
+          <div className="input-field">
+            <meter max="4" id="password-strength-meter"></meter>
+            <p id="password-strength-text"></p>
           </div>
 
           <div className="input-field">

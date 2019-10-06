@@ -37,7 +37,7 @@ class StatisticsChart extends Component {
           <h2 className="underline">Statistics</h2>
           <div className="Chart">
 
-            <Chart options={this.state.options} series={this.state.series} type="donut" width="380"/>
+            <Chart options={this.state.options} series={this.state.series} type="donut" width="75%"/>
           </div>
         </div>
     )

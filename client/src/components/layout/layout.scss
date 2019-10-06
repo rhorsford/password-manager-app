@@ -39,11 +39,13 @@ nav {
 
   .nav-wrapper {
     background-color: #353535;
+    li {
+      a {
+        color: #fff;
+      }
 
-    a {
-      color: #fff;
     }
-  }
+ }
 }
 
 //Heading
@@ -106,5 +108,4 @@ nav {
     transform: rotate(360deg);
   }
 }
-
 

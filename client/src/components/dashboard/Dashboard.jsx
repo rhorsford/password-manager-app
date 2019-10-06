@@ -13,6 +13,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loc: "dashboard",
       type: {
         total: "total",
         email: "email",
@@ -41,10 +42,8 @@ class Dashboard extends Component {
   onChartData = (e) => {
     const dataArray = [];
 
-    var regex = /(<([^>]+)>)/ig;
     var list = document.getElementById("stats");
     var items = list.querySelectorAll(".statistics");
-    var s = new XMLSerializer();
     var that = this;
 
     setTimeout(function() {
@@ -53,7 +52,6 @@ class Dashboard extends Component {
         if (item === "NaN") {
           dataArray.push(0);
         }else {
-          // dataArray.push(item.innerText);
           dataArray.push(parseInt(item.innerText));
         }
       });
@@ -83,10 +81,7 @@ class Dashboard extends Component {
 
 
     console.log(emailPercent);
-    }, 250);
-
-
-
+    }, 500);
   };
 
 
@@ -99,6 +94,7 @@ class Dashboard extends Component {
 
   render() {
     const {user} = this.props.auth;
+    const {loc} = this.state;
     const dashHead = "Dashboard";
     const dashList = 'dash-list';
     console.log(user);
@@ -110,7 +106,7 @@ class Dashboard extends Component {
             <SidePanel list={dashList}/>
             <div className="col-9">
               <UserPanel/>
-              <PageHeading heading={dashHead}/>
+              <PageHeading type ={loc}/>
               <div id="stats" className="row m-0 p-4">
                 <PasswordCounter type={this.state.type.total} user={this.props.auth} key="total"/>
                 <PasswordCounter type={this.state.type.email} key="email"/>

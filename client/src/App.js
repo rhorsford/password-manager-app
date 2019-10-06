@@ -66,6 +66,7 @@ class App extends Component {
                 <PrivateRoute exact path="/general" component={PasswordScreen} key="general"/>
                 <PrivateRoute exact path="/internet" component={PasswordScreen} key="internet"/>
                 <PrivateRoute exact path="/home-banking" component={PasswordScreen} key="homebanking"/>
+                <PrivateRoute exact path="/other" component={PasswordScreen} key="other"/>
               </Switch>
             </div>
           </Router>

@@ -13,37 +13,56 @@
     background-color: #f7f8fa;
     overflow: hidden;
 
-    [class^="col"]{
+    [class^="col"] {
       padding-right: 0;
       padding-left: 0;
     }
 
     .col-3 {
-     background-color: #525a65;
+      background-color: #525a65;
 
       h2, p, i, a {
         color: #fff;
       }
 
       ul {
+        padding-left: 17.5px;
+        padding-right: 17.5px;
         margin-top: 30px;
+
         li {
           text-decoration: none;
-          list-style:none;
+          list-style: none;
           text-align: left;
-          margin-bottom: 30px;
+          padding: 15px 7.5px;
+          margin-bottom: 15px;
 
           &:last-child {
             margin-bottom: 0;
           }
+
+          &.active {
+            background-color: #626c79;
+
+          }
+
+          .icon {
+            width: 30px;
+            text-align: left;
+            float: left;
+          }
+
           a {
             font-size: 1.2rem;
+            &.active {
+              font-weight: 600;
+            }
           }
         }
       }
     }
-  }
 
+  }
 // Metrics style
 
   .metrics {
@@ -122,4 +141,11 @@
       }
     }
   }
+}
+
+
+//Chart Styles
+
+.apexcharts-canvas {
+  margin: 0 auto;
 }

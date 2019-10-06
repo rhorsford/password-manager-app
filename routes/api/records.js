@@ -129,6 +129,9 @@ router.post('/home-banking', (req, res) => {
   postPasswords(req, res)
 });
 
+router.post('/other', (req, res) => {
+  postPasswords(req, res)
+});
 //Get requests
 
 router.get('/dashboard/:type', (req, res) => {
@@ -152,6 +155,10 @@ router.get('/internet/:name/:type', (req, res) => {
 });
 
 router.get('/home-banking/:name/:type', (req, res) => {
+  getPassMethod(req, res)
+});
+
+router.get('/other/:name/:type', (req, res) => {
   getPassMethod(req, res)
 });
 
