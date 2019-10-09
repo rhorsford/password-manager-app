@@ -28,10 +28,10 @@ export const removeRecords = (e) => axios.delete("/api/records/delete/" + findRo
 
 // Dashboard
 
-  export const dashboardNumbers = (type) => fetch('/api/records/dashboard/' + type)
+  export const dashboardNumbers = (user, type) => fetch('/api/records/password/' + user +'/' + type)
         .then((data) => data.json())
         .then((res) => res.data);
 
-  export const dashboardTotalNumbers = (user) => fetch('/api/records/dashboard/total/' + user)
+  export const dashboardTotalNumbers = (user) => fetch('/api/records/total/' + user)
       .then((data) => data.json())
       .then((res) => res.data);

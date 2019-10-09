@@ -65,7 +65,7 @@ getPassMethod = (req, res) => {
 };
 
 getCollectionCount = (req, res) => {
-  return Record.collection.count({type: req.params.type}).then(function (record) {
+  return Record.collection.countDocuments({name: req.params.name, type: req.params.type}).then(function (record) {
     res.json({data: record})
   })
       .catch(function (error) {
@@ -75,7 +75,7 @@ getCollectionCount = (req, res) => {
 };
 
 getTotalCollectionCount = (req, res) => {
-  return Record.collection.count({name: req.params.name}).then(function (record) {
+  return Record.collection.countDocuments({name: req.params.name}).then(function (record) {
     res.json({data: record})
   })
       .catch(function (error) {
@@ -134,11 +134,11 @@ router.post('/other', (req, res) => {
 });
 //Get requests
 
-router.get('/dashboard/:type', (req, res) => {
+router.get('/password/:name/:type', (req, res) => {
   getCollectionCount(req, res)
 });
 
-router.get('/dashboard/total/:name', (req, res) => {
+router.get('/total/:name', (req, res) => {
   getTotalCollectionCount(req, res)
 });
 

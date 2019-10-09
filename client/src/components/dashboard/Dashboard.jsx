@@ -49,38 +49,40 @@ class Dashboard extends Component {
     setTimeout(function() {
 
       items.forEach(function (item) {
-        if (item === "NaN") {
-          dataArray.push(0);
-        }else {
+        if(!isNaN(item)) {
+          console.log("test");
           dataArray.push(parseInt(item.innerText));
+
+          console.log(dataArray);
+          const unsetTotal = dataArray[0];
+          console.log(unsetTotal);
+
+          const total = dataArray[0];
+          const emailPercent = 100/total * dataArray[1];
+          const generalPercent = 100/total * dataArray[2];
+          const internetPercent = 100/total * dataArray[3];
+          const homeBankingPercent = 100/total * dataArray[4];
+          const otherPercent = 100/total * dataArray[5];
+
+          that.setState(state => {
+            state.chart.totalData = total;
+            state.chart.emailData = emailPercent;
+            state.chart.generalData = generalPercent;
+            state.chart.internetData = internetPercent;
+            state.chart.homebankingData = homeBankingPercent;
+            state.chart.otherData = otherPercent;
+            return state
+          });
+
+          console.log(that.state.chart.emailData);
+          console.log(emailPercent);
+
+        }else {
+          dataArray.push(parseInt("0"));
+          return false
         }
       });
 
-    console.log(dataArray);
-    const unsetTotal = dataArray[0];
-    console.log(unsetTotal);
-
-      const total = dataArray[0];
-      const emailPercent = 100/total * dataArray[1];
-      const generalPercent = 100/total * dataArray[2];
-      const internetPercent = 100/total * dataArray[3];
-      const homeBankingPercent = 100/total * dataArray[4];
-      const otherPercent = 100/total * dataArray[5];
-
-      that.setState(state => {
-        state.chart.totalData = total;
-        state.chart.emailData = emailPercent;
-        state.chart.generalData = generalPercent;
-        state.chart.internetData = internetPercent;
-        state.chart.homebankingData = homeBankingPercent;
-        state.chart.otherData = otherPercent;
-        return state
-      });
-
-      console.log(that.state.chart.emailData);
-
-
-    console.log(emailPercent);
     }, 500);
   };
 
@@ -109,12 +111,12 @@ class Dashboard extends Component {
               <PageHeading type ={loc}/>
               <div id="stats" className="row m-0 p-4">
                 <PasswordCounter type={this.state.type.total} user={this.props.auth} key="total"/>
-                <PasswordCounter type={this.state.type.email} key="email"/>
-                <PasswordCounter type={this.state.type.general}/>
-                <PasswordCounter type={this.state.type.internet}/>
-                <PasswordCounter type={this.state.type.homebanking}/>
-                <PasswordCounter type={this.state.type.other}/>
-               <StatisticsChart  emailData={this.state.chart.emailData}
+                <PasswordCounter type={this.state.type.email} user={this.props.auth} key="email"/>
+                <PasswordCounter type={this.state.type.general} user={this.props.auth}/>
+                <PasswordCounter type={this.state.type.internet} user={this.props.auth}/>
+                <PasswordCounter type={this.state.type.homebanking} user={this.props.auth}/>
+                <PasswordCounter type={this.state.type.other} user={this.props.auth}/>
+                <StatisticsChart  emailData={this.state.chart.emailData}
                                  generalData={this.state.chart.generalData}
                                  internetData={this.state.chart.internetData}
                                  homebankingData={this.state.chart.homebankingData}
