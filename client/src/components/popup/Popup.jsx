@@ -20,6 +20,8 @@ class Popup extends Component {
       name: "",
       title: "",
       type: "",
+      editPass: "edit",
+      newPass: "new",
       password: "",
       confirm_password: "",
       url: "",
@@ -59,8 +61,8 @@ class Popup extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.edit) {
-
+    if (prevState.password !== this.state.password) {
+      this.setState({password: this.state.password})
     }
   }
 
@@ -169,27 +171,22 @@ class Popup extends Component {
     e.preventDefault();
     let passEndpoint = this.props.passType;
 
-    {
       this.state.editRecord && this.state.editRecord.length ? this.existingRecordSubmit(e) : this.newRecordSubmit(passEndpoint, e);
-    }
 
 
   };
 
   render() {
 
-    const {errors, editRecord, edit} = this.state;
-    const popupHead = "Email Heading";
-    const editDetails = "Update Details";
-    const newDetails = "Add Login";
-    // console.log(this.state.editRecord);
-    // console.log(this.state.title);
-
+    const {editRecord, editPass, newPass} = this.state;
     return (
 
         <div className='popup p-4'>
           <a href="#" className="closebtn" onClick={this.props.closePopup}></a>
-          <PageHeading heading={popupHead}/>
+          {editRecord && editRecord.length ?
+              <PageHeading type={editPass}/>
+              :
+              <PageHeading type={newPass}/>}
 
           <div className='row'>
             <div className='col-12'>
@@ -209,6 +206,7 @@ class Popup extends Component {
                       onSubmit={this.onSubmit.bind(this)}
                       change={this.onChange.bind(this)}
                       passwordShow={this.passwordShow.bind(this)}
+                      passwordLengthChecker={this.state.password}
                       errors={this.state.errors}
                   />
               }

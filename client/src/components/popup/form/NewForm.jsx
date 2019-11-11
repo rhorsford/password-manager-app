@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PasswordStrengthMeter from "./PasswordStrengthMeter";
 import classnames from "classnames";
 
 
@@ -15,6 +16,7 @@ class NewForm extends Component {
       url: "",
       comments: "",
       edit: props.edit,
+      passLengthChecker: "",
       editRecord: [],
       errors: {}
     };
@@ -27,11 +29,18 @@ class NewForm extends Component {
       });
     }
 
+    if (nextProps.passLengthChecker) {
+      this.setState({
+        passLengthChecker: nextProps.passLengthChecker
+      });
+    }
+
   }
 
   render() {
 
     const {errors} = this.state;
+
     return (
         <form noValidate onSubmit={this.props.onSubmit}>
           <div className="input-field">
@@ -68,10 +77,8 @@ class NewForm extends Component {
             <i className="fas fa-eye" onClick={this.props.passwordShow}></i>
 
           </div>
-          <div className="input-field">
-            <meter max="4" id="password-strength-meter"></meter>
-            <p id="password-strength-text"></p>
-          </div>
+
+          <PasswordStrengthMeter passwordLength={this.props.passwordLengthChecker} />
 
           <div className="input-field">
             <label htmlFor="confirm_password">Confirm Password</label>

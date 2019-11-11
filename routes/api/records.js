@@ -1,62 +1,61 @@
+// import { encrypt, decrypt } from "ncrypt-js";
+const ncrypt = require('ncrypt-js');
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const crypto = require('crypto');
+const algorithm = 'aes-256-ctr';
+// const secretKey = require("../../config/keys").encryptKey;
+
+
+// console.log(secretKey);
+
+
 // Load input validation
 const validateRecordInput = require("../../validation/userPassword");
 // Load User model
 const Record = require("../../models/Record");
+
+const encryptedFunction = require("../../config/encryptionService");
+const decryptedFunction = require("../../config/decryptionService");
 
 // @route POST api/newrecord/email
 // @desc Register user
 // @access Public
 
 
-postPasswords = (req, res) => {
+const postPasswords = (req, res) => {
   const {errors, isValid} = validateRecordInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   } else {
     const valid = isValid;
+    const encryptPassword = encryptedFunction(req.body.password);
+    const encryptConfirmPassword = encryptedFunction(req.body.confirm_password);
+
     const newRecord = new Record({
       id: req.body.id,
       name: req.body.name,
       title: req.body.title,
       type: req.body.type,
-      password: req.body.password,
-      confirm_password: req.body.confirm_password,
+      password: encryptPassword,
+      confirm_password: encryptConfirmPassword,
       url: req.body.url,
       comments: req.body.comments
     });
 
-    newRecord
+        newRecord
         .save()
         .then(record => res.json(record))
         .catch(err => console.log(err));
-
-    // bcrypt.genSalt(10, (err, salt) => {
-    //   bcrypt.hash(newRecord.password, salt, (err, hash) => {
-    //     if (err) throw err;
-    //     newRecord.password = hash;
-    //     newRecord.confirm_password = hash;
-    //
-    //     newRecord
-    //         .save()
-    //         .then(record => res.json(record))
-    //         .catch(err => console.log(err));
-    //     // newRecord.save((err) => {
-    //     //   if (err) return res.json({success: false, error: err});
-    //     //   return res.json({success: true});
-    //     // });
-    //   });
-    // });
   }
 };
 
-getPassMethod = (req, res) => {
+const getPassMethod = (req, res) => {
   return Record.find({name: req.params.name, type: req.params.type}).then(function (record) {
-    res.json({data: record})
+    res.json({data: record});
   })
       .catch(function (error) {
         // handle error
@@ -64,7 +63,7 @@ getPassMethod = (req, res) => {
       })
 };
 
-getCollectionCount = (req, res) => {
+const getCollectionCount = (req, res) => {
   return Record.collection.countDocuments({name: req.params.name, type: req.params.type}).then(function (record) {
     res.json({data: record})
   })
@@ -74,7 +73,7 @@ getCollectionCount = (req, res) => {
       })
 };
 
-getTotalCollectionCount = (req, res) => {
+const getTotalCollectionCount = (req, res) => {
   return Record.collection.countDocuments({name: req.params.name}).then(function (record) {
     res.json({data: record})
   })
@@ -84,7 +83,7 @@ getTotalCollectionCount = (req, res) => {
       })
 };
 
-editPassMethod = (req, res) => {
+const editPassMethod = (req, res) => {
   return Record.find({name: req.params.name, id: req.params.id}).then(function (record) {
     res.json({data: record})
   })
@@ -94,16 +93,32 @@ editPassMethod = (req, res) => {
       })
 };
 
-updatePassMethod = (req, res) => {
+const updatePassMethod = (req, res) => {
   const recordToUpdate = req.params.id;
-  Record.update({id: recordToUpdate}, req.body, function (err, result) {
+  const updateEncryptPassword = encryptedFunction(req.body.password);
+  const updateEncryptConfirmPassword = encryptedFunction(req.body.confirm_password);
+
+  const updatedRecord = {
+    $set: {
+      id: req.body.id,
+      name: req.body.name,
+      title: req.body.title,
+      type: req.body.type,
+      password: updateEncryptPassword,
+      confirm_password: updateEncryptConfirmPassword,
+      url: req.body.url,
+      comments: req.body.comments
+    }
+  };
+
+  Record.collection.updateOne({id: recordToUpdate}, updatedRecord, function (err, result) {
     res.send(
         (err === null) ? {msg: ''} : {msg: err}
     );
   });
 };
 
-removePassMethod = (req, res) => {
+const removePassMethod = (req, res) => {
   const recordToDelete = req.params.id;
   Record.deleteOne({id: recordToDelete}, function (err, result) {
     res.send(

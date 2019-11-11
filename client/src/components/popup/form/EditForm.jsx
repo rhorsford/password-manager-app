@@ -1,9 +1,12 @@
-import React, {Component,  useEffect } from "react";
+import React, {Component } from "react";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import classnames from "classnames";
 import validateUserDetailsInput from "../../../../../validation/userPassword";
+const decryptedFunction = require("../../../../../config/decryptionService");
+
+import PasswordStrengthMeter from "./PasswordStrengthMeter";
 
 
 class editForm extends Component {
@@ -45,16 +48,23 @@ class editForm extends Component {
         e.target.closest("div").classList.remove("show-pass")
   };
 
+  isHex =(h) => {
+    const a = parseInt(h,16);
+    return (a.toString(16) ===h.toLowerCase())
+  };
+
   showEditDetails = () => {
     let _this = this;
     this.props.editRecord.map(record => {
-      const {id, name, title, type, password, confirm_password, url, comments} = record;
+      const {id, title, password, confirm_password, url, comments} = record;
+      const decryptPassword = decryptedFunction(password);
+      const decryptConfirmPassword = decryptedFunction(confirm_password);
 
       _this.setState({
         id: id,
         title: title,
-        password: password,
-        confirm_password: confirm_password,
+        password: decryptPassword,
+        confirm_password: decryptConfirmPassword,
         url: url,
         comments: comments
       });
@@ -120,6 +130,7 @@ class editForm extends Component {
                   {errors.password}
                   </span>
             <input
+                onClick={this.onUpdate}
                 onChange={this.onUpdate}
                 value={this.state.password}
                 error={errors.password}
@@ -132,12 +143,15 @@ class editForm extends Component {
             <i className="fas fa-eye" onClick={this.props.passwordShow}></i>
           </div>
 
+          <PasswordStrengthMeter passwordLength={this.state.password} />
+
           <div className="input-field">
             <label htmlFor="confirm_password">Confirm Password</label>
             <span className="red-text">
                   {errors.confirm_password}
                   </span>
             <input
+                onClick={this.onUpdate}
                 onChange={this.onUpdate}
                 value={this.state.confirm_password}
                 error={errors.confirm_password}

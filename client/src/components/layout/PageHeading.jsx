@@ -22,6 +22,10 @@ class PageHeading extends Component {
                   return <h2>Home banking Passwords</h2>;
                 case 'other':
                   return <h2>Other Passwords</h2>;
+                case 'new':
+                  return <h2>New Details</h2>;
+                 case 'edit':
+                  return <h2>Edit Details</h2>;
                 default:
                   return null;
               }

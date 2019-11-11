@@ -13,10 +13,6 @@ class StatisticsChart extends Component {
     };
   }
 
-  componentDidMount() {
-
-  };
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.emailData !== this.props.emailData) {
       let series = [...this.state.series];

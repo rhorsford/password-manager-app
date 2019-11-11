@@ -45,9 +45,25 @@ class PasswordScreen extends Component {
     }
   };
 
+ componentDidUpdate(prevProps, prevState, snapshot) {
+   const {records} = this.state;
+   if (prevState.records !== this.state.records) {
+     records.forEach(function(index){
+       index.pass
+     })
+   }
+ }
+
   getPassword = () => {
     const {user} = this.props.auth;
+
     getPasswords(this.state.type, user.name).then(data =>{
+
+      for (let index in data) {
+       let val = data[index].password.toString();
+       console.log(val);
+
+      }
       this.setState({records: data, isLoading: false})
     });
   };
@@ -75,7 +91,6 @@ class PasswordScreen extends Component {
 
   render() {
     let index = 0;
-
     const { isLoading, records,type } = this.state;
     const PassTable = ["Title", "type", "password", "url",  "date",""];
     const emailList = "email-list";
@@ -87,7 +102,7 @@ class PasswordScreen extends Component {
 
         <div className="col-9">
           <UserPanel />
-          <PageHeading type ={type}/>
+          <PageHeading type={type}/>
           <div className="password-container">
             <table>
               <thead>

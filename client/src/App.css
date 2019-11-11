@@ -235,7 +235,7 @@ h3 {
   box-sizing: border-box; }
 
 body {
-  background: linear-gradient(to right top, #ccdce7, #c1d5e2, #b7cddc, #acc6d7, #a1bfd2) no-repeat center center fixed;
+  background: url("./img/bg.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -446,9 +446,7 @@ nav {
   margin: 0 auto;
   background-color: #fff;
   z-index: 1;
-  width: 600px;
-  /* Webkit based browsers */
-  /* Gecko based browsers */ }
+  width: 600px; }
   .popup .row {
     width: auto; }
   .popup a.closebtn {
@@ -470,36 +468,30 @@ nav {
       transform: rotate(45deg); }
     .popup a.closebtn:after {
       transform: rotate(-45deg); }
-  .popup meter {
-    /* Reset the default appearance */
+  .popup .password-strength-meter {
+    text-align: left;
+    margin-bottom: 10px; }
+  .popup .password-strength-meter-progress {
     -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
-    margin: 0 auto 1em;
-    width: 100%;
-    height: 1.5em;
-    /* Applicable only to Firefox */
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1); }
-  .popup meter::-webkit-meter-bar {
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1); }
-  .popup meter[value="1"]::-webkit-meter-optimum-value {
-    background: red; }
-  .popup meter[value="2"]::-webkit-meter-optimum-value {
-    background: yellow; }
-  .popup meter[value="3"]::-webkit-meter-optimum-value {
-    background: orange; }
-  .popup meter[value="4"]::-webkit-meter-optimum-value {
-    background: green; }
-  .popup meter[value="1"]::-moz-meter-bar {
-    background: red; }
-  .popup meter[value="2"]::-moz-meter-bar {
-    background: yellow; }
-  .popup meter[value="3"]::-moz-meter-bar {
-    background: orange; }
-  .popup meter[value="4"]::-moz-meter-bar {
-    background: green; }
+    width: 75%;
+    height: 14px; }
+  .popup .password-strength-meter-progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 3px; }
+  .popup .password-strength-meter-label {
+    font-size: 14px; }
+  .popup .password-strength-meter-progress::-webkit-progress-value {
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%; }
+  .popup .strength-Weak::-webkit-progress-value {
+    background-color: #F25F5C; }
+  .popup .strength-Fair::-webkit-progress-value {
+    background-color: #FFE066; }
+  .popup .strength-Good::-webkit-progress-value {
+    background-color: #247BA0; }
+  .popup .strength-Strong::-webkit-progress-value {
+    background-color: #70C1B3; }
 
 .App {
   text-align: center; }

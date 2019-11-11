@@ -18,8 +18,6 @@ class PasswordCounter extends Component {
 
   DashboardData = () => {
     const {user} = this.props.user;
-    const that = this;
-    const that_ = this;
     if (this.props.type === "total") {
       dashboardTotalNumbers(user.name).then(data => {
         this.setState({output: data});

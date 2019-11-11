@@ -28,7 +28,7 @@
         height: 20px;
         width: 3px;
         background-color: #333;
-        display:block;
+        display: block;
       }
 
       &:before {
@@ -42,35 +42,46 @@
   }
 
   //Password Meter
-  meter {
-    /* Reset the default appearance */
+  .password-strength-meter {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .password-strength-meter-progress {
     -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
-
-    margin: 0 auto 1em;
-    width: 100%;
-    height: 1.5em;
-
-    /* Applicable only to Firefox */
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
+    width: 75%;
+    height: 14px;
   }
 
-  meter::-webkit-meter-bar {
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
+  .password-strength-meter-progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 3px;
   }
 
-  /* Webkit based browsers */
-  meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-  meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-  meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-  meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+  .password-strength-meter-label {
+    font-size: 14px;
+  }
 
-  /* Gecko based browsers */
-  meter[value="1"]::-moz-meter-bar { background: red; }
-  meter[value="2"]::-moz-meter-bar { background: yellow; }
-  meter[value="3"]::-moz-meter-bar { background: orange; }
-  meter[value="4"]::-moz-meter-bar { background: green; }
+  .password-strength-meter-progress::-webkit-progress-value {
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
+
+  .strength-Weak::-webkit-progress-value {
+    background-color: #F25F5C;
+  }
+
+  .strength-Fair::-webkit-progress-value {
+    background-color: #FFE066;
+  }
+
+  .strength-Good::-webkit-progress-value {
+    background-color: #247BA0;
+  }
+
+  .strength-Strong::-webkit-progress-value {
+    background-color: #70C1B3;
+  }
+
 }

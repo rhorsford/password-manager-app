@@ -12,6 +12,7 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
+    this.onChartData = this.onChartData.bind(this);
     this.state = {
       loc: "dashboard",
       type: {
@@ -34,58 +35,54 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+
     this.onChartData();
+
   }
 
 
+  onChartData = () => {
 
-  onChartData = (e) => {
     const dataArray = [];
+    const list = document.getElementById("stats");
+    const items = list.querySelectorAll(".statistics");
+    const that = this;
 
-    var list = document.getElementById("stats");
-    var items = list.querySelectorAll(".statistics");
-    var that = this;
-
-    setTimeout(function() {
+    setTimeout(function () {
 
       items.forEach(function (item) {
-        if(!isNaN(item)) {
-          console.log("test");
-          dataArray.push(parseInt(item.innerText));
-
-          console.log(dataArray);
-          const unsetTotal = dataArray[0];
-          console.log(unsetTotal);
-
-          const total = dataArray[0];
-          const emailPercent = 100/total * dataArray[1];
-          const generalPercent = 100/total * dataArray[2];
-          const internetPercent = 100/total * dataArray[3];
-          const homeBankingPercent = 100/total * dataArray[4];
-          const otherPercent = 100/total * dataArray[5];
-
-          that.setState(state => {
-            state.chart.totalData = total;
-            state.chart.emailData = emailPercent;
-            state.chart.generalData = generalPercent;
-            state.chart.internetData = internetPercent;
-            state.chart.homebankingData = homeBankingPercent;
-            state.chart.otherData = otherPercent;
-            return state
-          });
-
-          console.log(that.state.chart.emailData);
-          console.log(emailPercent);
-
-        }else {
-          dataArray.push(parseInt("0"));
-          return false
+        if (dataArray[item] === false || Number.isNaN(dataArray[item])) {
+          dataArray.push(0);
+        } else {
+          dataArray.push(parseInt(item.innerText, - 0));
         }
       });
 
+      console.log(dataArray);
+      const unsetTotal = dataArray[0];
+      console.log(unsetTotal);
+
+      if (dataArray[0] !== 0) {
+
+        const total = dataArray[0];
+        const emailPercent = 100 / total * dataArray[1];
+        const generalPercent = 100 / total * dataArray[2];
+        const internetPercent = 100 / total * dataArray[3];
+        const homeBankingPercent = 100 / total * dataArray[4];
+        const otherPercent = 100 / total * dataArray[5];
+
+        that.setState(state => {
+          state.chart.totalData = total;
+          state.chart.emailData = emailPercent;
+          state.chart.generalData = generalPercent;
+          state.chart.internetData = internetPercent;
+          state.chart.homebankingData = homeBankingPercent;
+          state.chart.otherData = otherPercent;
+          return state
+        });
+      }
     }, 500);
   };
-
 
 
   onLogoutClick = e => {
@@ -97,7 +94,6 @@ class Dashboard extends Component {
   render() {
     const {user} = this.props.auth;
     const {loc} = this.state;
-    const dashHead = "Dashboard";
     const dashList = 'dash-list';
     console.log(user);
 
@@ -108,7 +104,7 @@ class Dashboard extends Component {
             <SidePanel list={dashList}/>
             <div className="col-9">
               <UserPanel/>
-              <PageHeading type ={loc}/>
+              <PageHeading type={loc}/>
               <div id="stats" className="row m-0 p-4">
                 <PasswordCounter type={this.state.type.total} user={this.props.auth} key="total"/>
                 <PasswordCounter type={this.state.type.email} user={this.props.auth} key="email"/>
@@ -116,7 +112,7 @@ class Dashboard extends Component {
                 <PasswordCounter type={this.state.type.internet} user={this.props.auth}/>
                 <PasswordCounter type={this.state.type.homebanking} user={this.props.auth}/>
                 <PasswordCounter type={this.state.type.other} user={this.props.auth}/>
-                <StatisticsChart  emailData={this.state.chart.emailData}
+                <StatisticsChart emailData={this.state.chart.emailData}
                                  generalData={this.state.chart.generalData}
                                  internetData={this.state.chart.internetData}
                                  homebankingData={this.state.chart.homebankingData}
