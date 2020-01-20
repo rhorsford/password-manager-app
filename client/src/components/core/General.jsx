@@ -8,6 +8,7 @@ import Popup from "../popup/Popup";
 import PropTypes from "prop-types";
 import {editRecords, findRow, getPasswords, removeRecords} from "../stateless/Common";
 import {getGeneralUserPassword} from "../../actions/userPasswords";
+const { DragDropContext, Droppable, Draggable } = require('react-beautiful-dnd');
 
 class General extends Component {
 

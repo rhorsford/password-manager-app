@@ -7,6 +7,7 @@ import UserPanel from "./UserPanel";
 import PageHeading from "../layout/PageHeading";
 import PasswordCounter from "./subtemplate/PasswordCounter";
 import StatisticsChart from "./chart/StatisticsChart";
+import PasswordGenerator from "./generator/PasswordGenerator";
 
 class Dashboard extends Component {
 
@@ -118,7 +119,7 @@ class Dashboard extends Component {
                                  homebankingData={this.state.chart.homebankingData}
                                  otherData={this.state.chart.otherData}
                 />
-
+                <PasswordGenerator />
               </div>
             </div>
           </div>

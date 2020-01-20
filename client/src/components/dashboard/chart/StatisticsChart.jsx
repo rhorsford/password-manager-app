@@ -29,10 +29,9 @@ class StatisticsChart extends Component {
 
   render() {
     return (
-        <div className="col-6 chart metrics">
+        <div className="col-6 metrics chart">
           <h2 className="underline">Statistics</h2>
           <div className="Chart">
-
             <Chart options={this.state.options} series={this.state.series} type="donut" width="75%"/>
           </div>
         </div>

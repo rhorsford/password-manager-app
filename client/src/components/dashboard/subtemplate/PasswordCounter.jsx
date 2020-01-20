@@ -9,11 +9,8 @@ class PasswordCounter extends Component {
     }
   }
 
-
-
   componentDidMount() {
     this.DashboardData();
-    // this.DashboardItems()
   };
 
   DashboardData = () => {
@@ -25,15 +22,9 @@ class PasswordCounter extends Component {
     } else {
       dashboardNumbers(user.name, this.props.type).then(data => {
         this.setState({output: data});
-
       });
     }
   };
-
-  DashboardItems = () => {
-
-  };
-
 
   render() {
     const {output} = this.state;
@@ -42,7 +33,7 @@ class PasswordCounter extends Component {
           <h3 className="underline">{this.props.type} Password</h3>
           <span className="statistics">
               {output}
-                </span>
+          </span>
         </div>
     )
   }

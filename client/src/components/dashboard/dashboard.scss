@@ -2,9 +2,10 @@
 
 .dashboard {
 
-  @media (min-width:1200px){
+  @media (min-width: 1200px) {
     max-width: calc(100% - 10em)
-}
+  }
+
   .row {
     width: 100%;
   }
@@ -54,6 +55,7 @@
 
           a {
             font-size: 1.2rem;
+
             &.active {
               font-weight: 600;
             }
@@ -63,19 +65,21 @@
     }
 
   }
-// Metrics style
+
+  // Metrics style
 
   .metrics {
-   background-color: #fff;
+    background-color: #fff;
     @include box-shadow(2px, 0px, 9px, 0px, 180, 180, 180, 0.16);
   }
 
-  .col-4{
+  .col-4 {
 
     &.metrics {
       max-width: calc(33.33333% - 1em);
       text-align: left;
       padding: 1rem;
+
       &:nth-child(3n - 1) {
         margin-left: 1.5em;
         margin-right: 1.5em;
@@ -94,15 +98,21 @@
 
   .col-6 {
     margin-top: 1.5em;
-      &.metrics {
-        text-align: left;
-        padding: 1rem;
+
+    &.metrics {
+      max-width: calc(50% - 0.75em);
+      text-align: left;
+      padding: 1rem;
+
+      &:nth-child(even) {
+        margin-left: 1.5em;
       }
+    }
   }
 
-// Nav Dropdown styles
+  // Nav Dropdown styles
 
-  nav{
+  nav {
     &.user-details {
       //overflow: hidden;
       background-color: #fff;
@@ -125,11 +135,12 @@
         position: absolute;
         background-color: #f9f9f9;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         top: 50px;
         right: 0;
       }
+
       .dropdown {
         position: relative;
         width: 50%;
@@ -148,4 +159,37 @@
 
 .apexcharts-canvas {
   margin: 0 auto;
+}
+
+//Generator Styles
+
+.generator {
+  .input-field {
+    margin-top: 20px;
+
+    input {
+      width: 85%;
+      border-radius: 5px 0 0 5px;
+      display: inline-block;
+      float: left;
+    }
+
+    input[type=text] {
+      border: 1px solid #55555536;
+    }
+  }
+
+  button {
+    max-width: 100%;
+    width: auto;
+
+    &.btn {
+      padding: .625rem .75rem;
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.btn-green {
+      border-radius: 5px;
+    }
+  }
 }
