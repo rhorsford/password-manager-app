@@ -1,8 +1,11 @@
-@import "scss/variables.scss";
 @import "scss/mixins.scss";
+@import "scss/variables.scss";
 @import "scss/base.scss";
 @import "components/auth/auth.scss";
 @import "components/layout/layout.scss";
+@import "components/dashboard/dashboard.scss";
+@import "components/core/core.scss";
+@import "components/popup/popup.scss";
 
 
 .App {

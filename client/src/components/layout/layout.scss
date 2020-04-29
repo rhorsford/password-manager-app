@@ -5,11 +5,30 @@
 }
 
 body {
-  background: linear-gradient(to right top, #ccdce7, #c1d5e2, #b7cddc, #acc6d7, #a1bfd2) no-repeat center center fixed;
+  background: url("./img/bg.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  &.popup-bg {
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      position:fixed;
+      top: 0;
+      left: 0;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      z-index: 1;
+
+    }
+  }
 }
 
 
@@ -20,10 +39,20 @@ nav {
 
   .nav-wrapper {
     background-color: #353535;
+    li {
+      a {
+        color: #fff;
+      }
 
-    a {
-      color: #fff;
     }
+ }
+}
+
+//Heading
+
+.heading {
+  h2 {
+    margin-top: 20px;
   }
 }
 
@@ -51,8 +80,12 @@ nav {
   @include border-radius(8px);
   @include opacity(0.8);
   @include box-shadow(1px, 1px, 5px, 1px, 0, 0, 0, 0.45);
-  min-height: 350px;
+
   height: 100%;
+
+  &.set-height {
+    min-height: 650px;
+  }
 }
 
 
@@ -75,5 +108,4 @@ nav {
     transform: rotate(360deg);
   }
 }
-
 

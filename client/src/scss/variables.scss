@@ -1,0 +1,68 @@
+$breakpoints: (
+        xs: 576px,
+        sm: 768px,
+        md: 992px,
+        lg: 1200px
+);
+
+h1, h2, h3, h4, p {
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  font-size: 1.75em;
+
+  @include bp(tablet) {
+    font-size: 1.5em;
+  }
+}
+
+h2 {
+  font-size: 1.5em;
+
+  @include bp(tablet) {
+    font-size: 1.25em;
+  }
+
+  &.underline {
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 20px;
+
+    &:after {
+      content: '';
+      position:absolute;
+      left: 0;
+      bottom: -8px;
+      width: 30px;
+      height: 2px;
+      background-color: #83bedf;
+    }
+  }
+}
+
+
+h3 {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+
+  @include bp(tablet) {
+    font-size: 1em;
+  }
+
+
+  &.underline {
+    position: relative;
+    margin-bottom: 20px;
+
+    &:after {
+      content: '';
+      position:absolute;
+      left: 0;
+      bottom: -8px;
+      width: 30px;
+      height: 2px;
+      background-color: #83bedf;
+    }
+  }
+}

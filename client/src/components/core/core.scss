@@ -1,0 +1,64 @@
+//Core password file styling
+
+.password-container {
+  width: calc(100% - 2em);
+  border: 1px solid #525a65;
+  margin: 1em;
+  height: 420px;
+  overflow-y: scroll;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    thead {
+      background-color:#eaebed;
+      th{
+        text-align: left;
+        padding: 0 10px;
+      }
+    }
+    tbody {
+      background-color: #fff;
+      tr {
+        border-bottom: 1px solid #eaebed;
+
+        &:hover{
+          background-color: rgba(0,0,0,0.3);
+
+          td {
+            color:#fff;
+            cursor:pointer;
+          }
+        }
+        td {
+            padding: 5px 10px;
+            text-align: left;
+
+          &:nth-child(3){
+            span {
+              font-family: "text-security-disc";
+              -webkit-text-security: disc;
+              font-size: 18px;
+              letter-spacing: 1px;
+              width: 100px;
+              overflow: hidden;
+              display: block;
+              white-space: nowrap;
+            }
+          }
+          &:nth-child(6){
+            span {
+              padding: 0 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.details {
+  .btn.btn-blue {
+    margin-top:15px;
+  }
+}

@@ -1,0 +1,384 @@
+//Dashboard
+
+.dashboard {
+
+  @media (min-width: 1200px) {
+    max-width: calc(100% - 10em)
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .panel {
+    background-color: #f7f8fa;
+    overflow: hidden;
+
+    [class^="col"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .col-9 {
+      @include bp(tablet) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    .col-3 {
+      background-color: #525a65;
+
+      &.p-4 {
+
+        @include bp(sm-desktop) {
+          padding: 1.5rem 0.75rem !important;
+        }
+
+        @include bp(tablet) {
+          padding: 1.5rem 0.75rem !important;
+          display: none;
+        }
+
+        @include bp(mobile) {
+          display: none;
+        }
+
+      }
+
+      h2, p, i, a {
+        color: #fff;
+      }
+
+      ul {
+        padding-left: 17.5px;
+        padding-right: 17.5px;
+        margin-top: 30px;
+
+        @include bp(sm-desktop) {
+          padding: 0;
+        }
+
+        @include bp(tablet) {
+          padding: 0;
+        }
+
+        li {
+          text-decoration: none;
+          list-style: none;
+          text-align: left;
+          padding: 15px 7.5px;
+          margin-bottom: 15px;
+
+          @include bp(sm-desktop) {
+            text-align: center;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &.active {
+            background-color: #626c79;
+
+          }
+
+          .icon {
+            width: 30px;
+            text-align: left;
+            float: left;
+
+            @include bp(sm-desktop) {
+              width: 100%;
+              text-align: center;
+
+              i {
+                font-size: 2.5rem;
+              }
+            }
+
+            @include bp(tablet) {
+              i {
+                font-size: 2rem;
+              }
+            }
+          }
+
+          a {
+            font-size: 1.2rem;
+            @include bp(sm-desktop) {
+              font-size: 1em;
+            }
+
+            @include bp(tablet) {
+              font-size: 0.9rem;
+            }
+
+            &.active {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  // Metrics style
+
+  .metrics {
+    background-color: #fff;
+    @include box-shadow(2px, 0px, 9px, 0px, 180, 180, 180, 0.16);
+  }
+
+  .col-4 {
+
+    &.metrics {
+      max-width: calc(33.33333% - 1em);
+      text-align: left;
+      padding: 1rem;
+
+      @include bp(tablet) {
+        max-width: calc(50% - 1em);
+        flex: 0 0 50%;
+      }
+
+
+
+      &:nth-child(3n - 1) {
+        margin-left: 1.5em;
+        margin-right: 1.5em;
+
+        @include bp(tablet) {
+           margin-right: 0;
+           margin-left: 0;
+         }
+      }
+
+      &:nth-child(2n - 1) {
+        @include bp(tablet) {
+          margin-right: 1.5em;
+        }
+      }
+
+
+      &:nth-child(n + 4) {
+        margin-top: 1.5em;
+        @include bp(tablet) {
+          margin-top: 0;
+        }
+      }
+
+      &:nth-child(n + 3) {
+        @include bp(tablet) {
+          margin-top: 1.5em;
+        }
+      }
+
+      .statistics {
+        font-weight: 600;
+        font-size: 2em;
+
+        @include bp(tablet) {
+          font-size: 1.75em;
+        }
+      }
+    }
+  }
+
+  .col-6 {
+    margin-top: 1.5em;
+
+    &.metrics {
+      max-width: calc(50% - 0.75em);
+      text-align: left;
+      padding: 1rem;
+
+      @include bp(tablet) {
+        max-width: calc(100% - 0.75em);
+        flex: 0 0 100%;
+      }
+
+      &:nth-child(even) {
+        margin-left: 1.5em;
+        @include bp(tablet) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  // Nav Dropdown styles
+
+  nav {
+    &.user-details {
+      //overflow: hidden;
+      background-color: #fff;
+      float: left;
+
+
+      a {
+        float: right;
+        color: #333;
+        padding: 15px 20px;
+        text-decoration: none;
+
+        i {
+          padding-left: 2px;
+        }
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        top: 50px;
+        right: 0;
+        margin-top: 5px;
+      }
+
+      .dropdown {
+        position: relative;
+        width: 50%;
+        float: right;
+
+        &.nav {
+          float: left;
+          display: none;
+          @include bp(tablet) {
+            display: block;
+            .dropbtn {
+              float: left;
+              position: relative;
+              z-index: 2;
+              width: 60px;
+              height: 54px;
+
+
+              i {
+                position: relative;
+                z-index: -1;
+                //left: 0;
+                //right: 0;
+                //top: 33.33%;
+              }
+            }
+            .dropdown-content {
+              float: left;
+              left: 0;
+              right: auto;
+              width: 100px;
+
+              ul {
+                list-style: none;
+                width: 100%;
+                padding-left: 0;
+                li {
+                    display: inline-block;
+                    width: 100%;
+                  padding-top: 15px;
+                  padding-bottom: 40px;
+                  position: relative;
+                  background-color: #212529;
+                  .icon {
+
+                    i {
+                      color: #fff;
+                    }
+                  }
+
+                  a {
+                    color:#fff;
+                  }
+                  .icon {
+                    width: 100%;
+                    i {
+                      font-size: 2em;
+                    }
+                  }
+
+                  a {
+                    width: 100%;
+                    padding: 55px 20px 5px 20px;
+                    position: absolute;
+                    top:0;
+                    left: 0;
+                    font-size: 12px;
+                    height: 100%;
+                    z-index: 1;
+                  }
+
+                  &:hover {
+                    background-color: #fff;
+                    .icon {
+
+                      i {
+                        color: #212529;
+                      }
+                    }
+
+                    a {
+                      color: #212529;
+                    }
+                  }
+
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .dropdown .dropdown-content.open {
+        display: block;
+      }
+    }
+  }
+}
+
+
+//Chart Styles
+
+.apexcharts-canvas {
+  margin: 0 auto;
+}
+
+//Generator Styles
+
+.generator {
+  .input-field {
+    margin-top: 20px;
+
+    input {
+      width: calc(100% - 80px);
+      border-radius: 5px 0 0 5px;
+      display: inline-block;
+      float: left;
+
+      @include bp(tablet) {
+        width: calc(100% - 80px);
+      }
+    }
+
+    input[type=text] {
+      border: 1px solid #55555536;
+    }
+  }
+
+  button {
+    max-width: 100%;
+    width: auto;
+
+    &.btn {
+      padding: .625rem .75rem;
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.btn-green {
+      border-radius: 5px;
+    }
+  }
+}

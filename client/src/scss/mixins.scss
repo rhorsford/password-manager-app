@@ -4,6 +4,25 @@
  * Media Query BreakPoints
  */
 
+//Base Media Queries
+
+@mixin bp($point) {
+  @if $point == Large {
+    @media (max-width: 1600px) { @content; }
+  }
+  @else if $point == sm-desktop {
+    @media (max-width:1366px) { @content; }
+  }
+  @else if $point == tablet {
+    @media (max-width:990px) { @content; }
+  }
+  @else if $point == l-mobile {
+    @media (max-width: 768px)  { @content; }
+  }
+  @else if $point == sm-mobile {
+    @media (max-width: 480px)  { @content; }
+  }
+}
 
 @mixin break-point($point)
 {
@@ -62,14 +81,14 @@
  */
 
 @mixin box-shadow($hLen, $vLen, $blurR, $spreadR, $r, $g, $b, $opacity) {
-  -webkit-box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
-  -moz-box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
-  box-shadow: $hLen $vLen $blurR $spreadR rgba($r,$g,$b,$opacity);
+  -webkit-box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
+  -moz-box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
+  box-shadow: $hLen $vLen $blurR $spreadR rgba($r, $g, $b, $opacity);
 }
 
 /*
    //Usages
-   @include border-shading(10px 10px 5px 0px 0,0,0,0.75);
+   @include box-shadow(10px, 10px, 5px, 0px, 0,0,0,0.75);
  */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +105,22 @@
 /*
    //Usages
    @include border-radius(8px);
+ */
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * Border-Radius choise Mixin
+ */
+
+@mixin border-radius-opt($top, $left, $down, $right){
+  border-radius: $top $left $down $right;
+  -webkit-border-radius: $top $left $down $right;
+  -moz-border-radius: $top $left $down $right;
+}
+/*
+   //Usages
+   @include border-radius-opt(8px, 8px, 8px 8px);
  */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
